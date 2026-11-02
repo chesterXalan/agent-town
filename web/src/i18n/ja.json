@@ -123,5 +123,8 @@
   "emote.coffee": "コーヒー",
   "emote.angry": "いらいら",
   "emote.heart": "うれしい",
-  "emote.sleep": "眠い"
+  "emote.sleep": "眠い",
+  "settings.frameRate": "フレームレート",
+  "settings.recommendedFps": "{{fps}} FPS（推奨）",
+  "settings.frameRateHelp": "フレームレートを下げると描画の負荷を抑えられます。"
 }

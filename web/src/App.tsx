@@ -10,6 +10,7 @@ import { OFFICE_CAMERA } from '@/lib/office/camera'
 import { assignSeats, type SeatMap } from '@/lib/office/layout'
 import { localHour, PHASES, phaseSky, skyAt, WEATHERS, type Phase, type Weather } from '@/lib/office/sky'
 import { buildCampuses, DEMO_SESSIONS, STATE_CLASS } from '@/lib/town'
+import { useFrameRate } from '@/lib/frameRateStore'
 import { useTown } from '@/lib/useTown'
 import type { TownSession } from '../../shared/api'
 
@@ -31,6 +32,7 @@ class SceneBoundary extends Component<{ children: ReactNode; message: string }, 
 const EMPTY: TownSession[] = []
 export default function App() {
   const { t } = useTranslation()
+  const fps = useFrameRate()
   const [demo, setDemo] = useState(() => new URLSearchParams(location.search).get('demo') === '1')
   const town = useTown(demo)
   const sessions = demo ? DEMO_SESSIONS : (town.data?.sessions ?? EMPTY)
@@ -285,7 +287,7 @@ export default function App() {
                     frameloop={!hidden && !paused && reduce ? 'demand' : 'never'}
                     gl={{ antialias: true, powerPreference: 'low-power' }}
                   >
-                    <SceneClock active={!hidden && !paused && !reduce} />
+                    <SceneClock active={!hidden && !paused && !reduce} fps={fps} />
                     <OfficeScene
                       key={`${demo}:${pageIndex}`}
                       agents={campus.agents}

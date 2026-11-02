@@ -1,5 +1,7 @@
 import { useId } from 'react'
 import { useTranslation } from 'react-i18next'
+import { FRAME_RATES, DEFAULT_FRAME_RATE, type FrameRate } from '@/lib/frameRate'
+import { setFrameRate, useFrameRate } from '@/lib/frameRateStore'
 import { Popover } from 'radix-ui'
 import { Settings, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -20,6 +22,7 @@ export function SettingsMenu({
   const { t } = useTranslation()
   const language = useLanguagePreference()
   const theme = useThemePref()
+  const fps = useFrameRate()
   const titleId = useId()
   return (
     <Popover.Root>
@@ -71,6 +74,22 @@ export function SettingsMenu({
                 <option value="light">{t('settings.light')}</option>
                 <option value="dark">{t('settings.dark')}</option>
               </select>
+            </label>
+            <label className="flex flex-col gap-2 text-ui">
+              {t('settings.frameRate')}
+              <select
+                className="town-select"
+                aria-label={t('settings.frameRate')}
+                value={fps}
+                onChange={(event) => setFrameRate(Number(event.target.value) as FrameRate)}
+              >
+                {FRAME_RATES.map((rate) => (
+                  <option key={rate} value={rate}>
+                    {rate === DEFAULT_FRAME_RATE ? t('settings.recommendedFps', { fps: rate }) : `${rate} FPS`}
+                  </option>
+                ))}
+              </select>
+              <span className="text-body text-muted-foreground">{t('settings.frameRateHelp')}</span>
             </label>
             <hr className="border-t-2 border-border" />
             <div>

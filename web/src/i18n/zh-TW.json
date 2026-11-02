@@ -123,5 +123,8 @@
   "emote.coffee": "咖啡",
   "emote.angry": "生氣",
   "emote.heart": "開心",
-  "emote.sleep": "想睡"
+  "emote.sleep": "想睡",
+  "settings.frameRate": "畫面幀率",
+  "settings.recommendedFps": "{{fps}} FPS（建議）",
+  "settings.frameRateHelp": "降低幀率可以減少電腦負載"
 }

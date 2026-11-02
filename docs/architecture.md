@@ -31,7 +31,9 @@ Bundled i18next resources translate UI, demo titles, and speech at render time; 
 
 Observed session state and simulated life are separate: `working` types, `waiting` asks for attention,
 `idle` rests, and `unknown` remains explicitly labeled. All walking, breaks, and weather are local animation.
-The canvas draws at most 30 FPS, stops while hidden or paused, caps device pixel ratio at 1.5, and respects reduced-motion preference.
+The canvas defaults to 15 FPS; Settings offers 10, 15, 20, or 30 FPS, persisted in browser storage.
+Changing the drawing rate preserves simulation time and does not reset the camera or residents.
+The canvas stops while hidden or paused, caps device pixel ratio at 1.5, and respects reduced-motion preference.
 
 ## First-version boundaries
 

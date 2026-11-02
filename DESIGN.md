@@ -9,7 +9,8 @@ The scene and visual language retain sdd-dashboard's pixel neobrutalist style.
 - English, Traditional Chinese, and Japanese UI; preserve user-provided session titles and directory names.
 - Language follows the system by default, with English fallback; explicit preferences persist in browser storage.
 - Labeled icon buttons and keyboard focus indicators; show district counts only above one.
-- The top-right Settings popover contains language, appearance, connection status, and the demo switch.
+- The top-right Settings popover contains language, appearance, frame rate, connection status, and the demo switch.
+- Default to 15 FPS; offer 10, 15, 20, or 30 FPS without restarting the scene.
 - A scrolling resident list beside a bounded canvas; a stacked layout below 720 px.
 - Theme defaults to the system. Scene lighting follows local time independently of the UI theme.
 - Geographic carpet tokens identify six reusable slots; runtime labels identify actual projects.

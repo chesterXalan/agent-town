@@ -123,5 +123,8 @@
   "emote.coffee": "Coffee",
   "emote.angry": "Frustrated",
   "emote.heart": "Happy",
-  "emote.sleep": "Sleepy"
+  "emote.sleep": "Sleepy",
+  "settings.frameRate": "Frame rate",
+  "settings.recommendedFps": "{{fps}} FPS (recommended)",
+  "settings.frameRateHelp": "Lower frame rates reduce rendering load."
 }

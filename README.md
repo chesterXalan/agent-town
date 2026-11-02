@@ -16,11 +16,12 @@ pnpm install
 pnpm start
 ```
 
-Open **http://127.0.0.1:2510**. Use the top-right **Settings** gear for language, appearance, and demo mode,
+Open **http://127.0.0.1:2510**. Use the top-right **Settings** gear for language, appearance, frame rate, and demo mode,
 or open `/?demo=1` to visit without a bridge. English, Traditional Chinese, and Japanese follow your system
 by default, with English as the fallback.
 Click a resident to find them. Drag to orbit, scroll to zoom, or choose **Take a walk** and use WASD.
 Projects get their own districts; busy districts expand into additional wings and campuses.
+Rendering defaults to 15 FPS; lower it to 10 FPS in Settings for a lighter scene.
 
 ## Development
 
