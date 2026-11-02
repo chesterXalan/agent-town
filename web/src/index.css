@@ -1,0 +1,506 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0;
+  --border-w: 2px;
+  --shadow-color: #000;
+  --shadow: 4px 4px 0 var(--shadow-color);
+  --shadow-sm: 2px 2px 0 var(--shadow-color);
+  --control-h-xs: 20px;
+  --control-h-sm: 28px;
+  --control-h: 36px;
+  --control-h-lg: 44px;
+  --row-h: 40px;
+  --nav-w: 56px;
+  --nav-w-lg: 176px;
+  --header-h: 48px;
+  --sidebar-w: 320px;
+  --tabbar-h: 56px;
+  --content-max: 1440px;
+  --space-4: 16px;
+  --background: #f4f0e6;
+  --foreground: #1a1c2c;
+  --card: #ffffff;
+  --card-foreground: #1a1c2c;
+  --popover: #ffffff;
+  --popover-foreground: #1a1c2c;
+  --surface-2: #f1f1f2;
+  --code-bg: #e9e5dd;
+  --terminal-bg: #1a1c2c;
+  --terminal-fg: #f4f4f4;
+  --primary: #3b5dc9;
+  --primary-foreground: #ffffff;
+  --secondary: #e8e2d2;
+  --secondary-foreground: #1a1c2c;
+  --muted: #ebe5d6;
+  --muted-foreground: #5a5d70;
+  --accent: #ffcd75;
+  --accent-foreground: #1a1c2c;
+  --border: #000000;
+  --input: #000000;
+  --ring: #3b5dc9;
+  --ok: #257953;
+  --ok-fg: #ffffff;
+  --ok-soft: #e5efea;
+  --warn: #8a5300;
+  --warn-fg: #ffffff;
+  --warn-soft: #f1eae0;
+  --block: #b13e53;
+  --block-fg: #ffffff;
+  --block-soft: #f6e8ea;
+  --run: #3b5dc9;
+  --run-fg: #ffffff;
+  --run-soft: #e7ecf9;
+  --info: #257179;
+  --info-fg: #ffffff;
+  --info-soft: #e5eeef;
+  --destructive: var(--block);
+  --office-floor: #d9d4c8;
+  --office-wall: #efe9dc;
+  --office-trim: #d8cfbd;
+  --office-glass: #a8d8ea;
+  --office-corridor: #a8784a;
+  --office-lobby: #d9c9a8;
+  --office-lobby-alt: #d3cdc0;
+  --office-server: #7d848e;
+  --office-meeting: #5b6f8a;
+  --office-library: #b88957;
+  --office-manager: #9c9a94;
+  --office-atrium: #7a8f6a;
+  --office-sun: #fff1d6;
+  --office-sky: #ddd6c6;
+  --office-ground: #c9c2b0;
+  --office-carpet-north-west: #8fa58a;
+  --office-carpet-north-east: #c9a56b;
+  --office-carpet-east-north: #7f95b3;
+  --office-carpet-east-south: #c9846b;
+  --office-carpet-west-north: #b0a0c8;
+  --office-carpet-west-south: #cfc6b4;
+  --office-sky-dawn: #f2b8a0;
+  --office-sky-day: #9fd0f0;
+  --office-sky-dusk: #e88a5a;
+  --office-sky-night: #1b2340;
+  --office-sun-dawn: #ffc59a;
+  --office-sun-dusk: #ff9a5c;
+  --office-moon: #c8d4ff;
+  --office-lamp: #ffd9a0;
+  --office-outdoor: #8fa874;
+  --office-snow: #f2f5f8;
+  --office-rain: #a9bcd4;
+  --office-overcast: #8f97a3;
+  --office-road: #6b7079;
+  --office-road-line: #f2eee4;
+  --office-sidewalk: #cdc7b8;
+  --office-house-1: #e3b9a3;
+  --office-house-2: #a9c3d3;
+  --office-house-3: #e2d29f;
+  --office-house-4: #b7cfa6;
+  --office-roof: #8c6455;
+  --office-car-1: #c9665f;
+  --office-car-2: #5f88b0;
+  --office-car-3: #d9b44a;
+  --office-car-4: #6fa07a;
+  --office-light-red: #e05a4f;
+  --office-light-yellow: #f0c040;
+  --office-light-green: #5fbf6a;
+  --office-cloud: #ffffff;
+  --office-appliance: #b9bec5;
+  --office-whiteboard: #f7f6f1;
+  --office-cake: #e8c58f;
+  --office-cake-cream: #fff4ec;
+  --office-cake-stand: #c9a27a;
+  --office-candle: #f28aa0;
+  --office-flame: #ffb347;
+  --office-logo-disc: #ffffff;
+}
+
+.dark {
+  --shadow-color: #0b0c14;
+  --background: #1a1c2c;
+  --foreground: #f4f4f4;
+  --card: #222842;
+  --card-foreground: #f4f4f4;
+  --popover: #222842;
+  --popover-foreground: #f4f4f4;
+  --surface-2: #2f344d;
+  --code-bg: #252736;
+  --primary: #41a6f6;
+  --primary-foreground: #1a1c2c;
+  --secondary: #333c57;
+  --secondary-foreground: #f4f4f4;
+  --muted: #333c57;
+  --muted-foreground: #a7b0c6;
+  --accent: #3b5dc9;
+  --accent-foreground: #f4f4f4;
+  --border: #0b0c14;
+  --input: #0b0c14;
+  --ring: #73eff7;
+  --ok: #38b764;
+  --ok-fg: #1a1c2c;
+  --ok-soft: #1e2f33;
+  --warn: #ffcd75;
+  --warn-fg: #1a1c2c;
+  --warn-soft: #353135;
+  --block: #ff6b81;
+  --block-fg: #1a1c2c;
+  --block-soft: #352536;
+  --run: #41a6f6;
+  --run-fg: #1a1c2c;
+  --run-soft: #1f2d44;
+  --info: #73eff7;
+  --info-fg: #1a1c2c;
+  --info-soft: #253544;
+}
+
+@theme inline {
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ok: var(--ok);
+  --color-ok-fg: var(--ok-fg);
+  --color-warn: var(--warn);
+  --color-warn-fg: var(--warn-fg);
+  --color-block: var(--block);
+  --color-block-fg: var(--block-fg);
+  --color-run: var(--run);
+  --color-run-fg: var(--run-fg);
+  --color-info: var(--info);
+  --color-info-fg: var(--info-fg);
+  --shadow-brutal: var(--shadow);
+  --shadow-brutal-sm: var(--shadow-sm);
+  --animate-pixel-blink: pixel-blink 1s steps(2, jump-none) infinite;
+  --animate-border-blink: border-blink 2s steps(2, jump-none) infinite;
+  --color-surface-2: var(--surface-2);
+  --color-code-bg: var(--code-bg);
+  --color-terminal-bg: var(--terminal-bg);
+  --color-terminal-fg: var(--terminal-fg);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn-soft: var(--warn-soft);
+  --color-block-soft: var(--block-soft);
+  --color-run-soft: var(--run-soft);
+  --color-info-soft: var(--info-soft);
+  --font-display:
+    'Silkscreen', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'PingFang TC', 'Noto Sans TC',
+    'Microsoft JhengHei', sans-serif;
+  --font-body:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+  --font-num:
+    'Pixelify Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'PingFang TC', 'Noto Sans TC',
+    'Microsoft JhengHei', sans-serif;
+  --font-mono: ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', 'Noto Sans Mono CJK TC', monospace;
+  --animate-pixel-spin: pixel-spin 0.8s steps(8) infinite;
+}
+
+@keyframes pixel-blink {
+  50% {
+    opacity: 0.2;
+  }
+}
+@keyframes border-blink {
+  50% {
+    border-color: var(--foreground);
+  }
+}
+@keyframes pixel-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+/* neobrutalism 按壓：hover 吃一半陰影、active 全吃 */
+@utility press {
+  box-shadow: var(--shadow);
+  transition:
+    translate 80ms,
+    box-shadow 80ms;
+  &:hover {
+    translate: 2px 2px;
+    box-shadow: var(--shadow-sm);
+  }
+  &:active {
+    translate: 4px 4px;
+    box-shadow: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    &:hover,
+    &:active {
+      translate: none;
+    }
+  }
+}
+
+@utility text-display {
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+}
+@utility text-label {
+  font-family: var(--font-display);
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+@utility text-title {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+}
+@utility text-ui {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+@utility text-body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 22px;
+}
+@utility text-mono {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 20px;
+}
+@utility text-num {
+  font-family: var(--font-num);
+  font-size: 14px;
+  line-height: 20px;
+  font-variant-numeric: tabular-nums;
+}
+@utility text-num-xl {
+  font-family: var(--font-num);
+  font-size: 32px;
+  line-height: 36px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pixel-blink,
+  .animate-border-blink,
+  .animate-pixel-spin {
+    animation: none;
+  }
+  .animate-pulse,
+  .animate-spin,
+  .animate-ping {
+    animation: none;
+  }
+  [data-slot='sheet-content'],
+  [data-slot='sheet-overlay'],
+  [data-slot='tooltip-content'] {
+    animation: none;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-body text-foreground antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklch, var(--muted-foreground) 50%, transparent) transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: color-mix(in oklch, var(--muted-foreground) 50%, transparent);
+  border-radius: 0;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--muted-foreground);
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.md h1 {
+  @apply mt-6 mb-3 text-display;
+}
+.md h2 {
+  @apply mt-6 mb-2 border-b-2 pb-1 text-title;
+}
+.md h3 {
+  @apply mt-5 mb-2 scroll-mt-4 text-title;
+}
+.md h4,
+.md h5,
+.md h6 {
+  @apply mt-4 mb-1 scroll-mt-4 text-ui text-foreground;
+}
+.md p {
+  @apply my-3;
+}
+.md ul {
+  @apply my-2 list-disc pl-6;
+}
+.md ol {
+  @apply my-2 list-decimal pl-6;
+}
+.md li {
+  @apply my-1;
+}
+.md a {
+  @apply text-run underline;
+}
+.md code {
+  @apply bg-code-bg px-1 text-mono;
+}
+.md pre {
+  @apply my-3 overflow-x-auto border-2 border-border bg-terminal-bg p-3 text-mono text-terminal-fg;
+}
+.md pre code {
+  @apply bg-transparent p-0 text-inherit;
+}
+.md table {
+  @apply my-3 w-full border-collapse text-body;
+}
+.md th,
+.md td {
+  @apply border-2 px-2 py-1 text-left;
+}
+.md th {
+  @apply bg-surface-2 text-label;
+}
+.md blockquote {
+  @apply my-2 border-l-4 border-l-muted-foreground pl-3 text-muted-foreground;
+}
+
+/* Agent Town: fixed scene viewport with an independently scrolling roster. */
+.town-app {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.town-workspace {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+.town-roster {
+  width: 288px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.town-residents {
+  overflow-y: auto;
+  min-height: 0;
+  flex: 1;
+}
+.town-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.town-canvas {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+.town-card {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: min(320px, calc(100% - 32px));
+  max-height: calc(100% - 32px);
+  overflow-y: auto;
+}
+.town-select {
+  min-height: 36px;
+  border: 2px solid var(--border);
+  padding: 4px 8px;
+  background: var(--card);
+  color: var(--foreground);
+}
+.town-resident {
+  cursor: pointer;
+  min-width: 0;
+}
+.town-resident:focus-visible,
+.town-select:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+@media (max-width: 720px) {
+  .town-workspace {
+    flex-direction: column-reverse;
+  }
+  .town-roster {
+    width: 100%;
+    height: 240px;
+    border-right: 0;
+    border-top: 2px solid var(--border);
+  }
+  .town-roster > :last-child {
+    display: none;
+  }
+  .town-main {
+    min-height: 300px;
+  }
+  .town-app {
+    min-height: 760px;
+    height: 100dvh;
+    overflow: auto;
+  }
+}
+
+/* Keep Drei portals outside the canvas renderer's DOM ownership. */
+.town-labels {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.town-labels span {
+  pointer-events: auto;
+}
+.town-card {
+  z-index: 2;
+}
