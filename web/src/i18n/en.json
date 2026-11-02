@@ -129,7 +129,7 @@
   "settings.frameRateHelp": "Lower frame rates reduce rendering load.",
   "theme.switch": "Appearance: {{current}} · switch to {{next}}",
   "scene.localDaylight": "Local daylight",
-  "scene.localWeather": "Follow weather",
+  "scene.localWeather": "Local weather",
   "location.title": "City",
   "location.clear": "Use network location",
   "location.search": "Search city",
@@ -146,11 +146,9 @@
   "location.unavailable": "Weather unavailable · showing clear skies",
   "location.manual": "Weather is set manually",
   "location.credit": "Weather & places:",
-  "location.manualCity": "Manual city",
-  "location.network": "Network location · approximate",
   "location.lastNetwork": "Last network location · may be outdated",
   "location.refresh": "Detect network location again",
   "location.detecting": "Detecting network location…",
   "location.detectFailed": "Could not detect your location. Search for a city manually.",
-  "location.networkHint": "Estimated from your public IP. VPNs can change the result. Source:"
+  "location.networkHint": "Estimated from network location. Source:"
 }

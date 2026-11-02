@@ -45,4 +45,4 @@ Kenney models are CC0; see the [asset notice](web/public/office/LICENSE.md).
 Weather estimates come from [Open-Meteo](https://open-meteo.com/) and city names from [GeoNames](https://www.geonames.org/),
 under CC BY 4.0. The Open-Meteo free API is for non-commercial use. Daylight is calculated locally with
 [SunCalc](https://github.com/mourner/suncalc) (BSD-2-Clause).
-Approximate network location is provided by [IPWhois](https://ipwhois.io/); VPNs can affect the result.
+Approximate network location is provided by [IPWhois](https://ipwhois.io/).

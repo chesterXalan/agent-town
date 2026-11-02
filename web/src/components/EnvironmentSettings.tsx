@@ -61,16 +61,16 @@ export function EnvironmentSettings({ now }: { now: number }) {
   return (
     <section className="flex flex-col gap-3" aria-label={t('location.title')}>
       <h3 className="text-ui">{t('location.title')}</h3>
-      <div className="flex items-start justify-between gap-2">
-        <p className="text-body text-muted-foreground">
-          {t(
-            location.manual
-              ? 'location.manualCity'
-              : location.stale && city
-                ? 'location.lastNetwork'
-                : 'location.network',
-          )}
-        </p>
+      <div className="flex items-center justify-between gap-2">
+        {city ? (
+          <p className="min-w-0 break-words text-body" title={cityLabel(city)}>
+            {city.name}
+          </p>
+        ) : (
+          <p role="status" className="min-w-0 text-body text-muted-foreground">
+            {t(location.isFetching ? 'location.detecting' : 'location.detectFailed')}
+          </p>
+        )}
         {location.manual ? (
           <Button
             variant="ghost"
@@ -94,15 +94,9 @@ export function EnvironmentSettings({ now }: { now: number }) {
           </Button>
         )}
       </div>
-      {city ? (
-        <div className="flex items-start justify-between gap-2">
-          <p className="min-w-0 break-words text-body" title={cityLabel(city)}>
-            {city.name}
-          </p>
-        </div>
-      ) : (
+      {!location.manual && location.stale && city && (
         <p role="status" className="text-body text-muted-foreground">
-          {t(location.isFetching ? 'location.detecting' : 'location.detectFailed')}
+          {t('location.lastNetwork')}
         </p>
       )}
       {!location.manual && (

@@ -16,7 +16,8 @@ The scene and visual language retain sdd-dashboard's pixel neobrutalist style.
 - A scrolling resident list beside a bounded canvas; a stacked layout below 720 px.
 - Theme defaults to the system. Scene lighting follows the selected city's sunlight independently of the UI theme.
 - Use approximate network location unless the user selects a city. Manual selection always wins and persists.
-- Settings identifies network/manual location, offers re-detection and a return to network location, and explains VPN effects.
+- Settings shows the city result directly below its heading, with re-detection or a return to network location on the right.
+  Network estimates include a short source credit; stale estimates retain an explicit status message.
 - If no location is available, automatic daylight uses the device clock and weather stays clear.
 - Show city-local sunrise/sunset and weather observation time in Settings; label cached or unavailable weather explicitly.
 - Geographic carpet tokens identify six reusable slots; runtime labels identify actual projects.

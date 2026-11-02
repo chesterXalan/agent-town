@@ -129,7 +129,7 @@
   "settings.frameRateHelp": "フレームレートを下げると描画の負荷を抑えられます。",
   "theme.switch": "外観：{{current}} · {{next}}に切り替え",
   "scene.localDaylight": "現地の日照に合わせる",
-  "scene.localWeather": "天気に合わせる",
+  "scene.localWeather": "現地の天気に合わせる",
   "location.title": "都市",
   "location.clear": "ネットワークの位置を使う",
   "location.search": "都市を検索",
@@ -146,11 +146,9 @@
   "location.unavailable": "天気を取得できません · 晴れを表示中",
   "location.manual": "天気は手動で設定されています",
   "location.credit": "天気・地名データ：",
-  "location.manualCity": "手動で指定した都市",
-  "location.network": "ネットワークの位置 · 推定",
   "location.lastNetwork": "前回の推定位置 · 古い可能性があります",
   "location.refresh": "ネットワークの位置を再検出",
   "location.detecting": "ネットワークの位置を検出中…",
   "location.detectFailed": "位置を推定できません。都市を手動で検索してください。",
-  "location.networkHint": "公開 IP から推定します。VPN によって結果が変わることがあります。提供："
+  "location.networkHint": "ネットワークの位置から推定、提供："
 }
