@@ -16,8 +16,10 @@ pnpm install
 pnpm start
 ```
 
-Open **http://127.0.0.1:2510**. Choose **看看示範** to visit without a bridge, or open `/?demo=1`.
-Click a resident to find them. Drag to orbit, scroll to zoom, or choose **進去走走** and use WASD.
+Open **http://127.0.0.1:2510**. Use the top-right **Settings** gear for language, appearance, and demo mode,
+or open `/?demo=1` to visit without a bridge. English, Traditional Chinese, and Japanese follow your system
+by default, with English as the fallback.
+Click a resident to find them. Drag to orbit, scroll to zoom, or choose **Take a walk** and use WASD.
 Projects get their own districts; busy districts expand into additional wings and campuses.
 
 ## Development

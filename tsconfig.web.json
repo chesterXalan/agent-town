@@ -15,7 +15,8 @@
     "noUnusedParameters": true,
     "paths": {
       "@/*": ["./web/src/*"]
-    }
+    },
+    "resolveJsonModule": true
   },
   "include": ["web/src", "shared"]
 }

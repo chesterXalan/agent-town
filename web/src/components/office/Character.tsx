@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Html, useAnimations, useGLTF } from '@react-three/drei'
 import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber'
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -255,6 +256,7 @@ export function Character({
   lifeLine = null,
   onSelect,
 }: CharacterProps) {
+  const { t } = useTranslation()
   const look = appearanceOf(agent)
   const tint = useMemo(() => readToken(look.rankToken), [look.rankToken])
   const held = carry ? CARRY_SHAPE[carry] : look.prop ? PROP_SHAPE[look.prop] : null
@@ -296,23 +298,32 @@ export function Character({
             {look.stars > 0 && (
               <span
                 className="border-2 border-border bg-card px-1 text-label text-foreground"
-                aria-label={`effort ${agent.effort}`}
+                aria-label={t('agent.effort', { effort: agent.effort })}
               >
                 {'★'.repeat(look.stars)}
               </span>
             )}
             {thinking && (
-              <span className="border-2 border-border bg-card px-1 text-label text-foreground" aria-label="thinking">
+              <span
+                className="border-2 border-border bg-card px-1 text-label text-foreground"
+                aria-label={t('agent.thinking')}
+              >
                 …
               </span>
             )}
             {waiting && (
-              <span className="border-2 border-border bg-warn px-1 text-label text-warn-fg" aria-label="waiting">
+              <span
+                className="border-2 border-border bg-warn px-1 text-label text-warn-fg"
+                aria-label={t('state.waiting')}
+              >
                 !
               </span>
             )}
             {alert && (
-              <span className="border-2 border-border bg-block px-1 text-label text-block-fg" aria-label="blocked">
+              <span
+                className="border-2 border-border bg-block px-1 text-label text-block-fg"
+                aria-label={t('agent.blocked')}
+              >
                 !
               </span>
             )}

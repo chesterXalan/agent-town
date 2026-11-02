@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+import { localizeSpeech } from '@/i18n/speech'
 import { Html } from '@react-three/drei'
 import { useThree } from '@react-three/fiber'
 import { useEffect, useRef, useState } from 'react'
@@ -35,13 +37,14 @@ export function useBubble(line: string | null): string | null {
 
 /** 頭上台詞泡泡 */
 export function SpeechBubble({ text, position }: { text: string; position: Vec3 }) {
+  const { t } = useTranslation()
   return (
     <Html position={position} center>
       <span
         role="status"
         className="block w-max max-w-60 border-2 border-border bg-card px-2 py-1 text-body text-foreground shadow-brutal-sm"
       >
-        {text}
+        {localizeSpeech(text, t)}
       </span>
     </Html>
   )

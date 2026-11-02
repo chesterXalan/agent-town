@@ -3,14 +3,8 @@ import type { Vec3 } from './layout'
 export type Phase = 'dawn' | 'day' | 'dusk' | 'night'
 export type Weather = 'clear' | 'cloudy' | 'rain' | 'snow' | 'storm'
 
-export const PHASE_LABEL: Record<Phase, string> = { dawn: '清晨', day: '白天', dusk: '黃昏', night: '晚上' }
-export const WEATHER_LABEL: Record<Weather, string> = {
-  clear: '晴',
-  cloudy: '多雲',
-  rain: '下雨',
-  snow: '下雪',
-  storm: '雷雨',
-}
+export const PHASES: readonly Phase[] = ['dawn', 'day', 'dusk', 'night']
+export const WEATHERS: readonly Weather[] = ['clear', 'cloudy', 'rain', 'snow', 'storm']
 
 export interface SkyState {
   /** 漸變：t=0 全 from、t=1 全 to */

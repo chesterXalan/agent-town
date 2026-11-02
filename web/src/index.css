@@ -504,3 +504,11 @@
 .town-card {
   z-index: 2;
 }
+
+.town-settings {
+  z-index: 50;
+  width: 320px;
+  max-width: calc(100vw - 32px);
+  max-height: var(--radix-popover-content-available-height);
+  overflow-y: auto;
+}

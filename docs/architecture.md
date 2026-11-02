@@ -25,7 +25,9 @@ API responses are not cached. Foreign hosts/origins and write methods are reject
 
 Each working directory gets a district. There are six districts per campus and at most twelve residents per wing.
 Additional wings/campuses preserve every resident without overlapping desks. Ordering is deterministic by directory;
-adding/removing a project can change its campus slot. Browser theme preference is persisted locally.
+adding/removing a project can change its campus slot. Browser theme and language preferences are persisted locally.
+Language defaults to the primary system language (English, Chinese, or Japanese), otherwise English.
+Bundled i18next resources translate UI, demo titles, and speech at render time; language changes do not reset the scene.
 
 Observed session state and simulated life are separate: `working` types, `waiting` asks for attention,
 `idle` rests, and `unknown` remains explicitly labeled. All walking, breaks, and weather are local animation.

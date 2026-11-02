@@ -2,12 +2,6 @@ import type { OfficeAgent, SessionState, TownAgent, TownSession } from '../../..
 import type { OfficeDept } from '../../../shared/office'
 import { DEPT_ORDER } from './office/layout'
 
-export const STATE_LABEL: Record<SessionState, string> = {
-  working: '工作中',
-  waiting: '等你回覆',
-  idle: '休息中',
-  unknown: '未知・未取得 hooks',
-}
 export const STATE_CLASS: Record<SessionState, string> = {
   working: 'text-run',
   waiting: 'text-warn',
@@ -92,19 +86,19 @@ export function buildCampuses(sessions: TownSession[]): Campus[] {
 }
 
 export const DEMO_SESSIONS: TownSession[] = [
-  ['harbor', 'claude', 'working', '整理碼頭的任務'],
-  ['harbor', 'codex', 'waiting', '等你決定下一步'],
-  ['garden', 'codex', 'idle', '花園的午後'],
-  ['garden', 'claude', 'working', '照顧新的點子'],
-  ['observatory', 'claude', 'idle', '觀星休息時間'],
-  ['observatory', 'codex', 'working', '尋找遠方的訊號'],
-  ['library', 'claude', 'unknown', '尚未連接 hooks'],
-  ['library', 'codex', 'waiting', '有一件事想問你'],
-  ['workshop', 'claude', 'working', '打造新的工具'],
-  ['workshop', 'codex', 'idle', '喝杯咖啡'],
-  ['orchard', 'claude', 'idle', '果園散步中'],
-  ['orchard', 'codex', 'working', '照顧小樹苗'],
-  ['lighthouse', 'codex', 'waiting', '燈塔等你回來'],
+  ['harbor', 'claude', 'working', 'demo.0'],
+  ['harbor', 'codex', 'waiting', 'demo.1'],
+  ['garden', 'codex', 'idle', 'demo.2'],
+  ['garden', 'claude', 'working', 'demo.3'],
+  ['observatory', 'claude', 'idle', 'demo.4'],
+  ['observatory', 'codex', 'working', 'demo.5'],
+  ['library', 'claude', 'unknown', 'demo.6'],
+  ['library', 'codex', 'waiting', 'demo.7'],
+  ['workshop', 'claude', 'working', 'demo.8'],
+  ['workshop', 'codex', 'idle', 'demo.9'],
+  ['orchard', 'claude', 'idle', 'demo.10'],
+  ['orchard', 'codex', 'working', 'demo.11'],
+  ['lighthouse', 'codex', 'waiting', 'demo.12'],
 ].map(([project, provider, state, title], i) => ({
   id: `demo:${i}`,
   pid: 1000 + i,
