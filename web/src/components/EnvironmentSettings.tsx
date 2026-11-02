@@ -1,17 +1,20 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
-import { Search, X } from 'lucide-react'
+import { LocateFixed, RefreshCw, Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { setEnvironment, useEnvironment } from '@/lib/environmentStore'
 import { useWeather } from '@/lib/useWeather'
 import { usableWeather, weatherIsStale } from '@/lib/weather'
 import { sunTimesAtLocation } from '@/lib/sunlight'
+import { useLocation } from '@/lib/useLocation'
 import { cityLabel, type City } from '../../../shared/weather'
 
 export function EnvironmentSettings({ now }: { now: number }) {
   const { t, i18n } = useTranslation()
-  const { city, weather } = useEnvironment()
+  const { weather } = useEnvironment()
+  const location = useLocation()
+  const { city } = location
   const [input, setInput] = useState('')
   const [search, setSearch] = useState<{ name: string; language: string } | null>(null)
   const cities = useQuery({
@@ -58,20 +61,57 @@ export function EnvironmentSettings({ now }: { now: number }) {
   return (
     <section className="flex flex-col gap-3" aria-label={t('location.title')}>
       <h3 className="text-ui">{t('location.title')}</h3>
-      {city && (
-        <div className="flex items-start justify-between gap-2">
-          <p className="min-w-0 break-words text-body" title={cityLabel(city)}>
-            {city.name}
-          </p>
+      <div className="flex items-start justify-between gap-2">
+        <p className="text-body text-muted-foreground">
+          {t(
+            location.manual
+              ? 'location.manualCity'
+              : location.stale && city
+                ? 'location.lastNetwork'
+                : 'location.network',
+          )}
+        </p>
+        {location.manual ? (
           <Button
             variant="ghost"
             size="icon"
             aria-label={t('location.clear')}
+            title={t('location.clear')}
             onClick={() => setEnvironment({ city: null })}
           >
-            <X className="size-4" />
+            <LocateFixed className="size-4" />
           </Button>
+        ) : (
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label={t('location.refresh')}
+            title={t('location.refresh')}
+            disabled={location.isFetching}
+            onClick={location.refresh}
+          >
+            <RefreshCw className="size-4" />
+          </Button>
+        )}
+      </div>
+      {city ? (
+        <div className="flex items-start justify-between gap-2">
+          <p className="min-w-0 break-words text-body" title={cityLabel(city)}>
+            {city.name}
+          </p>
         </div>
+      ) : (
+        <p role="status" className="text-body text-muted-foreground">
+          {t(location.isFetching ? 'location.detecting' : 'location.detectFailed')}
+        </p>
+      )}
+      {!location.manual && (
+        <p className="text-body text-muted-foreground">
+          {t('location.networkHint')}{' '}
+          <a className="underline" href="https://ipwhois.io/" target="_blank" rel="noreferrer">
+            IPWhois
+          </a>
+        </p>
       )}
       <form
         className="flex gap-2"
@@ -133,7 +173,7 @@ export function EnvironmentSettings({ now }: { now: number }) {
           )}
         </div>
       )}
-      {city ? (
+      {city && (
         <div className="flex flex-col gap-2 text-body text-muted-foreground">
           <p>{t('location.sunTimes', { sunrise: formatTime(times!.sunrise), sunset: formatTime(times!.sunset) })}</p>
           {(times!.alwaysUp || times!.alwaysDown) && (
@@ -141,8 +181,6 @@ export function EnvironmentSettings({ now }: { now: number }) {
           )}
           <p role="status">{status}</p>
         </div>
-      ) : (
-        <p className="text-body text-muted-foreground">{t('location.notSelected')}</p>
       )}
       <p className="text-body text-muted-foreground">
         {t('location.credit')}{' '}

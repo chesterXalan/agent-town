@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { coordinateKey, weatherFromCode, WEATHER_MAX_AGE_MS, type City } from '../../../shared/weather'
 import { DEFAULT_ENVIRONMENT, loadEnvironment, saveEnvironment } from './environment'
 import { loadWeather, usableWeather, weatherIsStale } from './weather'
+import { LOCATION_MAX_AGE_MS, resolveCity } from '../../../shared/location'
 
 const city: City = {
   id: 1,
@@ -15,6 +16,16 @@ const city: City = {
 }
 afterEach(() => vi.useRealTimers())
 describe('environment preferences and offline data', () => {
+  it('keeps manual selection ahead of late network results and can return to automatic location', () => {
+    const now = 1_800_000_000_000
+    const network = { city: { ...city, name: 'Tokyo' }, detectedAt: now, stale: false }
+    expect(resolveCity(city, undefined, now)).toBe(city)
+    expect(resolveCity(city, network, now)).toBe(city)
+    expect(resolveCity(null, network, now)).toBe(network.city)
+    expect(resolveCity(null, undefined, now)).toBeNull()
+    expect(resolveCity(null, network, now + LOCATION_MAX_AGE_MS)).toBeNull()
+    expect(resolveCity(city, network, now + LOCATION_MAX_AGE_MS)).toBe(city)
+  })
   it('persists the selected city and both overrides, including automatic modes', () => {
     let value = ''
     const storage = {

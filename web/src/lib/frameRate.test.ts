@@ -6,7 +6,7 @@ describe('frame rate preference', () => {
   it.each(FRAME_RATES)('restores supported rate %s', (fps) => {
     expect(loadFrameRate({ getItem: () => String(fps) })).toBe(fps)
   })
-  it.each([null, '', '0', '60', '-1', 'Infinity', 'NaN', 'bad'])(
+  it.each([null, '', '0', '120', '-1', 'Infinity', 'NaN', 'bad'])(
     'defaults to 15 FPS for invalid or missing value %s',
     (value) => {
       expect(loadFrameRate({ getItem: () => value })).toBe(15)

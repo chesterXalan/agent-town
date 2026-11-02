@@ -3,9 +3,14 @@ import { streamSSE } from 'hono/streaming'
 import { createSource } from './source'
 import { createWeatherService } from './weather'
 import { validCoordinates } from '../shared/weather'
+import { createLocationService } from './location'
 
 const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '[::1]'])
-export function createApp(source = createSource(), weather = createWeatherService()) {
+export function createApp(
+  source = createSource(),
+  weather = createWeatherService(),
+  location = createLocationService(),
+) {
   const app = new Hono()
   let streams = 0
   app.use('*', async (c, next) => {
@@ -28,6 +33,15 @@ export function createApp(source = createSource(), weather = createWeatherServic
     await next()
   })
   app.get('/api/town', async (c) => c.json(await source.refresh()))
+  app.get('/api/location', async (c) => {
+    const refresh = c.req.query('refresh')
+    if (refresh !== undefined && refresh !== '1') return c.json({ error: 'Invalid refresh value' }, 400)
+    try {
+      return c.json(await location.read(refresh === '1'))
+    } catch {
+      return c.json({ error: 'Network location unavailable. Choose a city manually.' }, 502)
+    }
+  })
   app.get('/api/cities', async (c) => {
     const query = (c.req.query('q') ?? '').trim()
     const language = c.req.query('language') ?? 'en'

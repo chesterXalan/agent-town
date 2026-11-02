@@ -12,10 +12,12 @@ The scene and visual language retain sdd-dashboard's pixel neobrutalist style.
 - The top-right Settings popover contains language, frame rate, city search, connection status, and the demo switch.
 - A separate header button cycles system/light/dark appearance. Time and weather each have one toolbar selector:
   follow the selected city or use a manual override, without duplicate controls in Settings.
-- Default to 15 FPS; offer 10, 15, 20, or 30 FPS without restarting the scene.
+- Default to 15 FPS; offer 10, 15, 20, 30, or 60 FPS without restarting the scene.
 - A scrolling resident list beside a bounded canvas; a stacked layout below 720 px.
 - Theme defaults to the system. Scene lighting follows the selected city's sunlight independently of the UI theme.
-- City selection is explicit. Before selection, automatic daylight uses the device clock and weather stays clear.
+- Use approximate network location unless the user selects a city. Manual selection always wins and persists.
+- Settings identifies network/manual location, offers re-detection and a return to network location, and explains VPN effects.
+- If no location is available, automatic daylight uses the device clock and weather stays clear.
 - Show city-local sunrise/sunset and weather observation time in Settings; label cached or unavailable weather explicitly.
 - Geographic carpet tokens identify six reusable slots; runtime labels identify actual projects.
 - Keep style/token regression tests intact. Update this document when changing shared UI or tokens.

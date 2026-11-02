@@ -21,9 +21,9 @@ or open `/?demo=1` to visit without a bridge. English, Traditional Chinese, and 
 by default, with English as the fallback.
 Click a resident to find them. Drag to orbit, scroll to zoom, or choose **Take a walk** and use WASD.
 Projects get their own districts; busy districts expand into additional wings and campuses.
-Rendering defaults to 15 FPS; lower it to 10 FPS in Settings for a lighter scene.
-The appearance button cycles through system, light, and dark. Choose a city to follow local daylight and weather;
-the scene's time and weather menus also let you override either one.
+Rendering defaults to 15 FPS; Settings offers 10–60 FPS to suit your computer.
+The appearance button cycles through system, light, and dark. Daylight and weather use an approximate network location;
+search for a city in Settings to override it. The scene's time and weather menus also allow manual overrides.
 
 ## Development
 
@@ -45,3 +45,4 @@ Kenney models are CC0; see the [asset notice](web/public/office/LICENSE.md).
 Weather estimates come from [Open-Meteo](https://open-meteo.com/) and city names from [GeoNames](https://www.geonames.org/),
 under CC BY 4.0. The Open-Meteo free API is for non-commercial use. Daylight is calculated locally with
 [SunCalc](https://github.com/mourner/suncalc) (BSD-2-Clause).
+Approximate network location is provided by [IPWhois](https://ipwhois.io/); VPNs can affect the result.

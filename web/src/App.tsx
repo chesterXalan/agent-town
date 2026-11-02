@@ -17,6 +17,7 @@ import { setEnvironment, useEnvironment } from '@/lib/environmentStore'
 import { useWeather } from '@/lib/useWeather'
 import { usableWeather } from '@/lib/weather'
 import { skyAtLocation } from '@/lib/sunlight'
+import { useLocation } from '@/lib/useLocation'
 import type { TownSession } from '../../shared/api'
 
 class SceneBoundary extends Component<{ children: ReactNode; message: string }, { failed: boolean }> {
@@ -49,7 +50,8 @@ export default function App() {
   const selected = sessions.find((s) => s.id === selectedId)
   const [firstPerson, setFirstPerson] = useState(false)
   const [paused, setPaused] = useState(false)
-  const { city, phase, weather: weatherMode } = useEnvironment()
+  const { phase, weather: weatherMode } = useEnvironment()
+  const { city } = useLocation()
   const localWeather = useWeather(city, weatherMode === 'auto')
   const [now, setNow] = useState(Date.now)
   const [hidden, setHidden] = useState(document.hidden)
