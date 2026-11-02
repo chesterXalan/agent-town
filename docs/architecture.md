@@ -14,12 +14,28 @@ Open SSE connections request a scan every two seconds; without a browser, no bac
 Unavailable or failed bridges clear residents and display a source warning. Missing hooks remain `unknown`.
 If a browser loses its server connection, it labels the retained snapshot as potentially stale.
 
-The HTTP API exposes only session metadata. Agent Town does not read or store prompts, tool arguments,
+The session API exposes only metadata. Agent Town does not read or store prompts, tool arguments,
 terminal output, or transcripts. The separately installed bridge may inspect local transcript metadata to derive titles.
-Titles and paths stay on the local machine; no telemetry or remote integrations are configured.
+Titles and paths stay on the local machine. The optional weather integration sends only city searches or
+selected coordinates to Open-Meteo; no session information or telemetry is sent.
 
 GET `/api/town` returns a snapshot. GET `/api/events` streams changed snapshots and heartbeats.
 API responses are not cached. Foreign hosts/origins and write methods are rejected; the server binds only to `127.0.0.1`.
+
+## Weather and sunlight
+
+GET `/api/cities?q=…&language=…` searches Open-Meteo's GeoNames geocoding service.
+GET `/api/weather?latitude=…&longitude=…` maps its current WMO weather code to a scene condition.
+Both providers have fixed HTTPS endpoints and eight-second timeouts. Requests validate input and retain the local-only API boundary.
+Weather estimates are shared between tabs with a bounded, in-memory 15-minute cache and deduplicated requests;
+provider failures back off for one minute. The client refreshes every 15 minutes while visible, only in automatic mode.
+The last successful reading for the selected coordinates survives reloads. Failures retain it with a cached label,
+but readings older than 24 hours are discarded and the scene falls back to clear with an unavailable message.
+
+SunCalc computes the sun's direction and twilight from coordinates, independently of the network.
+Sunrise/sunset use the selected city's calendar day and timezone, including DST and polar day/night.
+City and manual/automatic overrides persist locally; without a selected city, the original device-clock day/night
+cycle and clear weather remain available. No location permission or implicit IP geolocation is used.
 
 ## Town
 
@@ -30,7 +46,7 @@ Language defaults to the primary system language (English, Chinese, or Japanese)
 Bundled i18next resources translate UI, demo titles, and speech at render time; language changes do not reset the scene.
 
 Observed session state and simulated life are separate: `working` types, `waiting` asks for attention,
-`idle` rests, and `unknown` remains explicitly labeled. All walking, breaks, and weather are local animation.
+`idle` rests, and `unknown` remains explicitly labeled. All walking, breaks, and weather effects are local animation.
 The canvas defaults to 15 FPS; Settings offers 10, 15, 20, or 30 FPS, persisted in browser storage.
 Changing the drawing rate preserves simulation time and does not reset the camera or residents.
 The canvas stops while hidden or paused, caps device pixel ratio at 1.5, and respects reduced-motion preference.

@@ -5,23 +5,23 @@ import { setFrameRate, useFrameRate } from '@/lib/frameRateStore'
 import { Popover } from 'radix-ui'
 import { Settings, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { EnvironmentSettings } from '@/components/EnvironmentSettings'
 import { setLanguagePreference, useLanguagePreference } from '@/i18n'
 import type { LanguagePreference } from '@/i18n/language'
-import { setThemePref, useThemePref } from '@/lib/themeStore'
-import type { ThemePref } from '@/lib/theme'
 
 export function SettingsMenu({
   demo,
   sourceLabel,
   onToggleDemo,
+  now,
 }: {
   demo: boolean
   sourceLabel: string
   onToggleDemo(): void
+  now: number
 }) {
   const { t } = useTranslation()
   const language = useLanguagePreference()
-  const theme = useThemePref()
   const fps = useFrameRate()
   const titleId = useId()
   return (
@@ -64,18 +64,6 @@ export function SettingsMenu({
               </select>
             </label>
             <label className="flex flex-col gap-2 text-ui">
-              {t('settings.theme')}
-              <select
-                className="town-select"
-                value={theme}
-                onChange={(event) => setThemePref(event.target.value as ThemePref)}
-              >
-                <option value="system">{t('settings.system')}</option>
-                <option value="light">{t('settings.light')}</option>
-                <option value="dark">{t('settings.dark')}</option>
-              </select>
-            </label>
-            <label className="flex flex-col gap-2 text-ui">
               {t('settings.frameRate')}
               <select
                 className="town-select"
@@ -91,6 +79,8 @@ export function SettingsMenu({
               </select>
               <span className="text-body text-muted-foreground">{t('settings.frameRateHelp')}</span>
             </label>
+            <hr className="border-t-2 border-border" />
+            <EnvironmentSettings now={now} />
             <hr className="border-t-2 border-border" />
             <div>
               <p className="mb-2 text-label text-muted-foreground">{t('settings.source')}</p>

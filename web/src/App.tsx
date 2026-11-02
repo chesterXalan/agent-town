@@ -6,12 +6,17 @@ import { SceneClock } from '@/components/SceneClock'
 import { OfficeScene } from '@/components/office/OfficeScene'
 import { Button } from '@/components/ui/button'
 import { SettingsMenu } from '@/components/SettingsMenu'
+import { ThemeButton } from '@/components/ThemeButton'
 import { OFFICE_CAMERA } from '@/lib/office/camera'
 import { assignSeats, type SeatMap } from '@/lib/office/layout'
 import { localHour, PHASES, phaseSky, skyAt, WEATHERS, type Phase, type Weather } from '@/lib/office/sky'
 import { buildCampuses, DEMO_SESSIONS, STATE_CLASS } from '@/lib/town'
 import { useFrameRate } from '@/lib/frameRateStore'
 import { useTown } from '@/lib/useTown'
+import { setEnvironment, useEnvironment } from '@/lib/environmentStore'
+import { useWeather } from '@/lib/useWeather'
+import { usableWeather } from '@/lib/weather'
+import { skyAtLocation } from '@/lib/sunlight'
 import type { TownSession } from '../../shared/api'
 
 class SceneBoundary extends Component<{ children: ReactNode; message: string }, { failed: boolean }> {
@@ -44,8 +49,8 @@ export default function App() {
   const selected = sessions.find((s) => s.id === selectedId)
   const [firstPerson, setFirstPerson] = useState(false)
   const [paused, setPaused] = useState(false)
-  const [phase, setPhase] = useState<Phase | 'auto'>('auto')
-  const [weather, setWeather] = useState<Weather>('clear')
+  const { city, phase, weather: weatherMode } = useEnvironment()
+  const localWeather = useWeather(city, weatherMode === 'auto')
   const [now, setNow] = useState(Date.now)
   const [hidden, setHidden] = useState(document.hidden)
   const [reduce, setReduce] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches)
@@ -75,7 +80,13 @@ export default function App() {
     document.title = waiting ? t('app.waitingTitle', { count: waiting }) : 'Agent Town'
   }, [waiting, t])
   const hour = localHour(now)
-  const sky = phase === 'auto' ? skyAt(hour) : phaseSky(phase)
+  const sky = phase === 'auto' ? (city ? skyAtLocation(now, city) : skyAt(hour)) : phaseSky(phase)
+  const weather =
+    weatherMode === 'auto'
+      ? city
+        ? (usableWeather(localWeather.data, now)?.weather ?? 'clear')
+        : 'clear'
+      : weatherMode
   const sourceLabel = demo
     ? t('source.demo')
     : town.isError
@@ -120,11 +131,12 @@ export default function App() {
             <p className="text-label text-muted-foreground">{t('app.tagline')}</p>
           </div>
         </div>
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="ml-auto flex flex-wrap items-center gap-3">
           <Button variant="ghost" size="icon" aria-label={t('help.title')} onClick={() => setHelp(!help)}>
             <CircleHelp className="size-5" />
           </Button>
-          <SettingsMenu demo={demo} sourceLabel={sourceLabel} onToggleDemo={toggleDemo} />
+          <ThemeButton />
+          <SettingsMenu demo={demo} sourceLabel={sourceLabel} onToggleDemo={toggleDemo} now={now} />
         </div>
       </header>
       <div className="town-workspace">
@@ -232,9 +244,9 @@ export default function App() {
                 aria-label={t('scene.phase')}
                 className="town-select text-ui"
                 value={phase}
-                onChange={(e) => setPhase(e.target.value as Phase | 'auto')}
+                onChange={(e) => setEnvironment({ phase: e.target.value as Phase | 'auto' })}
               >
-                <option value="auto">{t('scene.auto')}</option>
+                <option value="auto">{t(city ? 'scene.localDaylight' : 'scene.auto')}</option>
                 {PHASES.map((value) => (
                   <option key={value} value={value}>
                     {t(`phase.${value}`)}
@@ -244,9 +256,10 @@ export default function App() {
               <select
                 aria-label={t('scene.weather')}
                 className="town-select text-ui"
-                value={weather}
-                onChange={(e) => setWeather(e.target.value as Weather)}
+                value={weatherMode}
+                onChange={(e) => setEnvironment({ weather: e.target.value as Weather | 'auto' })}
               >
+                <option value="auto">{t('scene.localWeather')}</option>
                 {WEATHERS.map((value) => (
                   <option key={value} value={value}>
                     {t(`weather.${value}`)}

@@ -16,12 +16,14 @@ pnpm install
 pnpm start
 ```
 
-Open **http://127.0.0.1:2510**. Use the top-right **Settings** gear for language, appearance, frame rate, and demo mode,
+Open **http://127.0.0.1:2510**. Use the top-right **Settings** gear for language, city, frame rate, and demo mode,
 or open `/?demo=1` to visit without a bridge. English, Traditional Chinese, and Japanese follow your system
 by default, with English as the fallback.
 Click a resident to find them. Drag to orbit, scroll to zoom, or choose **Take a walk** and use WASD.
 Projects get their own districts; busy districts expand into additional wings and campuses.
 Rendering defaults to 15 FPS; lower it to 10 FPS in Settings for a lighter scene.
+The appearance button cycles through system, light, and dark. Choose a city to follow local daylight and weather;
+the scene's time and weather menus also let you override either one.
 
 ## Development
 
@@ -40,3 +42,6 @@ Adapted from our colleague **leolu**'s [sdd-dashboard](https://git.thebarkingdog
 The retained scene, animation, and design-system code is recorded in [Provenance](docs/provenance.md).
 The upstream code has no declared repository-wide license; this adaptation remains **private** and is not relicensed.
 Kenney models are CC0; see the [asset notice](web/public/office/LICENSE.md).
+Weather estimates come from [Open-Meteo](https://open-meteo.com/) and city names from [GeoNames](https://www.geonames.org/),
+under CC BY 4.0. The Open-Meteo free API is for non-commercial use. Daylight is calculated locally with
+[SunCalc](https://github.com/mourner/suncalc) (BSD-2-Clause).
