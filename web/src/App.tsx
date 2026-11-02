@@ -18,6 +18,7 @@ import { useWeather } from '@/lib/useWeather'
 import { usableWeather } from '@/lib/weather'
 import { skyAtLocation } from '@/lib/sunlight'
 import { useLocation } from '@/lib/useLocation'
+import { usePwa } from '@/lib/usePwa'
 import type { TownSession } from '../../shared/api'
 
 class SceneBoundary extends Component<{ children: ReactNode; message: string }, { failed: boolean }> {
@@ -39,6 +40,7 @@ const EMPTY: TownSession[] = []
 export default function App() {
   const { t } = useTranslation()
   const fps = useFrameRate()
+  const pwa = usePwa()
   const [demo, setDemo] = useState(() => new URLSearchParams(location.search).get('demo') === '1')
   const town = useTown(demo)
   const sessions = demo ? DEMO_SESSIONS : (town.data?.sessions ?? EMPTY)
@@ -141,6 +143,22 @@ export default function App() {
           <SettingsMenu demo={demo} sourceLabel={sourceLabel} onToggleDemo={toggleDemo} now={now} />
         </div>
       </header>
+      {pwa.needRefresh && (
+        <div
+          role="status"
+          className="flex items-center justify-between gap-3 border-b-2 border-border bg-card px-4 py-2 text-body"
+        >
+          {t('pwa.updateReady')}
+          <Button variant="outline" onClick={() => void pwa.updateServiceWorker(true)}>
+            {t('pwa.update')}
+          </Button>
+        </div>
+      )}
+      {!demo && !town.connected && (
+        <div role="status" className="border-b-2 border-border bg-warn-soft px-4 py-2 text-body">
+          {town.data || town.isError ? t('source.disconnected') : t('source.connecting')}
+        </div>
+      )}
       <div className="town-workspace">
         <aside className="town-roster border-r-2 border-border bg-card" aria-label={t('roster.label')}>
           <div className="flex flex-col gap-3 border-b-2 border-border p-4">
@@ -316,6 +334,7 @@ export default function App() {
                       firstPerson={firstPerson}
                       reduce={reduce}
                       onSelectAgent={select}
+                      agentLabel={(agent) => sessionTitle(agent.session)}
                     />
                   </Canvas>
                 )}

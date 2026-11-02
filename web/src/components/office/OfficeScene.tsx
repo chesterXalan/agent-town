@@ -5,6 +5,7 @@ import { Vector3 } from 'three'
 import type { TownAgent } from '../../../../shared/api'
 import type { OfficeDept } from '../../../../shared/office'
 import { appearanceOf } from '@/lib/office/appearance'
+import { useZoomSpeed } from '@/lib/zoomStore'
 import { townDistance, OFFICE_CAMERA } from '@/lib/office/camera'
 import { isMoveKey, isTypingTarget, PAN_SPEED, panStep } from '@/lib/office/keys'
 import { deptZone, HALF, seatFacing, type SeatMap, type Vec3 } from '@/lib/office/layout'
@@ -44,6 +45,7 @@ interface Props {
   firstPerson: boolean
   reduce: boolean
   onSelectAgent(id: string): void
+  agentLabel(agent: TownAgent): string
 }
 function useWasdPan(controls: RefObject<CameraControls | null>, firstPerson: boolean, disabled: boolean) {
   const held = useRef(new Set<string>())
@@ -100,7 +102,9 @@ export function OfficeScene({
   firstPerson,
   reduce,
   onSelectAgent,
+  agentLabel,
 }: Props) {
+  const zoomSpeed = useZoomSpeed()
   const controls = useRef<CameraControls>(null)
   const size = useThree((s) => s.size)
   const life = useAgentLife({ agents, seats, events: NO_EVENTS, sky, hour, reduce, eventBusy, eventPoseOf })
@@ -122,8 +126,8 @@ export function OfficeScene({
   useEffect(() => {
     if (firstPerson) return
     if (!focusId) {
-      void controls.current?.setLookAt(...OFFICE_CAMERA.position, 0, 0, 0, false)
-      void controls.current?.dollyTo(fit, false)
+      void controls.current?.setLookAt(...OFFICE_CAMERA.position, 0, 0, 0, !reduce)
+      void controls.current?.dollyTo(fit, !reduce)
       return
     }
     const { agents: current, seats: currentSeats, life: currentLife } = latest.current
@@ -170,10 +174,12 @@ export function OfficeScene({
                   rotationY={yaw}
                   screenToken={appearanceOf(agent).screenToken}
                   lamp={agent.session.state === 'working' ? sky.night : 0}
+                  onSelect={() => onSelectAgent(agent.id)}
                 />
               )}
               <Character
                 agent={agent}
+                label={agentLabel(agent)}
                 position={draw.position}
                 facing={draw.facing ?? facing}
                 action={draw.anim}
@@ -199,6 +205,7 @@ export function OfficeScene({
         azimuthRotateSpeed={firstPerson ? -0.3 : 1}
         polarRotateSpeed={firstPerson ? -0.3 : 1}
         truckSpeed={firstPerson ? 0 : 2}
+        dollySpeed={zoomSpeed}
       />
     </>
   )

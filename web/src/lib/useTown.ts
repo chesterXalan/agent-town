@@ -10,6 +10,7 @@ export function useTown(demo: boolean) {
     enabled: !demo,
     staleTime: Infinity,
     retry: 1,
+    networkMode: 'always',
     queryFn: async (): Promise<TownSnapshot> => {
       const response = await fetch('/api/town')
       if (!response.ok) throw new Error('Unable to read local session state')

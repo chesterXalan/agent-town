@@ -150,5 +150,10 @@
   "location.refresh": "ネットワークの位置を再検出",
   "location.detecting": "ネットワークの位置を検出中…",
   "location.detectFailed": "位置を推定できません。都市を手動で検索してください。",
-  "location.networkHint": "ネットワークの位置から推定、提供："
+  "location.networkHint": "ネットワークの位置から推定、提供：",
+  "settings.zoomSpeed": "ズーム感度",
+  "resident.select": "{{name}} を選択",
+  "pwa.updateReady": "新しいバージョンがあります",
+  "pwa.update": "再読み込みして更新",
+  "source.disconnected": "ローカルサービスとの接続が切れ、状態の更新が停止しています。サービスを起動すると再接続します。"
 }

@@ -11,7 +11,7 @@ const app = createApp(createSource(() => readSessions(helper)))
 const root = fileURLToPath(new URL('../dist', import.meta.url))
 app.get('/*', serveStatic({ root }))
 const server = serve({ fetch: app.fetch, hostname: '127.0.0.1', port }, () => {
-  console.log(`Agent Town: http://127.0.0.1:${port}`)
+  console.log(`Agent Town: http://localhost:${port}`)
 })
 function shutdown() {
   server.close()

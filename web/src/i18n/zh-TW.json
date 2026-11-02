@@ -150,5 +150,10 @@
   "location.refresh": "重新偵測網路位置",
   "location.detecting": "正在偵測網路位置…",
   "location.detectFailed": "無法判斷網路位置，請手動搜尋城市",
-  "location.networkHint": "依網路位置推測，來源："
+  "location.networkHint": "依網路位置推測，來源：",
+  "settings.zoomSpeed": "縮放靈敏度",
+  "resident.select": "選取 {{name}}",
+  "pwa.updateReady": "有新版本可以更新",
+  "pwa.update": "重新載入並更新",
+  "source.disconnected": "本機服務已中斷，工作階段狀態暫停更新；啟動服務後會自動連線"
 }

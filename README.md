@@ -16,14 +16,19 @@ pnpm install
 pnpm start
 ```
 
-Open **http://127.0.0.1:2510**. Use the top-right **Settings** gear for language, city, frame rate, and demo mode,
+Open **http://localhost:2510**. Use the top-right **Settings** gear for language, city, frame rate, zoom sensitivity, and demo mode,
 or open `/?demo=1` to visit without a bridge. English, Traditional Chinese, and Japanese follow your system
 by default, with English as the fallback.
-Click a resident to find them. Drag to orbit, scroll to zoom, or choose **Take a walk** and use WASD.
+Click a resident, their desk, or their status badge to find them. Drag to orbit, scroll to zoom, or choose **Take a walk** and use WASD.
 Projects get their own districts; busy districts expand into additional wings and campuses.
 Rendering defaults to 15 FPS; Settings offers 10–60 FPS to suit your computer.
 The appearance button cycles through system, light, and dark. Daylight and weather use an approximate network location;
 search for a city in Settings to override it. The scene's time and weather menus also allow manual overrides.
+
+Install Agent Town from your browser’s **Install app / Add to Dock** menu for a separate window.
+Keep the local service running for live sessions; the cached town and demo can open without it.
+Updates offer a reload button. Use the same host and port to retain your preferences and installed app;
+`127.0.0.1` still works but has separate browser storage.
 
 ## Development
 

@@ -150,5 +150,10 @@
   "location.refresh": "Detect network location again",
   "location.detecting": "Detecting network location…",
   "location.detectFailed": "Could not detect your location. Search for a city manually.",
-  "location.networkHint": "Estimated from network location. Source:"
+  "location.networkHint": "Estimated from network location. Source:",
+  "settings.zoomSpeed": "Zoom sensitivity",
+  "resident.select": "Select {{name}}",
+  "pwa.updateReady": "A new version is ready",
+  "pwa.update": "Reload to update",
+  "source.disconnected": "Local service disconnected · session status is not live. Start the service to reconnect."
 }

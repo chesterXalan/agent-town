@@ -219,6 +219,7 @@ function useRestPose(
 
 export interface CharacterProps {
   agent: OfficeAgent
+  label: string
   position: Vec3
   /** 繞 y 軸的朝向（弧度）；預設面向 -z 的辦公桌 */
   facing?: number
@@ -244,6 +245,7 @@ export interface CharacterProps {
 /** agent 角色：依 job 選模型、rank 決定腳下色、頭上顯示 effort 星數、thinking 的 … 與 waiting 的 !；狀況一變冒台詞泡泡 */
 export function Character({
   agent,
+  label,
   position,
   facing = Math.PI,
   action = null,
@@ -277,6 +279,16 @@ export function Character({
 
   return (
     <group position={position}>
+      <mesh
+        position={[0, 0.7, 0]}
+        onClick={(event) => {
+          event.stopPropagation()
+          if (event.delta <= 5) onSelect()
+        }}
+      >
+        <boxGeometry args={[0.85, 1.4, 0.85]} />
+        <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+      </mesh>
       <group rotation-y={heading}>
         {/* 模型面向本地 +z；繞本地 x 正轉即往前傾；坐著時以臀（lift 高度）為軸 */}
         <group position={[0, lift, forward]} rotation-x={lean}>
@@ -294,7 +306,16 @@ export function Character({
       </group>
       {(look.stars > 0 || waiting || thinking || alert || emote) && (
         <Html position={[0, HEAD_Y, 0]} center>
-          <span className="flex items-center gap-1 whitespace-nowrap">
+          <button
+            type="button"
+            className="flex min-h-11 min-w-11 cursor-pointer items-center justify-center gap-1 whitespace-nowrap"
+            aria-label={t('resident.select', { name: label })}
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={(event) => {
+              event.stopPropagation()
+              onSelect()
+            }}
+          >
             {look.stars > 0 && (
               <span
                 className="border-2 border-border bg-card px-1 text-label text-foreground"
@@ -328,7 +349,7 @@ export function Character({
               </span>
             )}
             {emote && <EmoteIcon emote={emote} />}
-          </span>
+          </button>
         </Html>
       )}
       {line && <SpeechBubble text={line} position={[0, BUBBLE_Y, 0]} />}

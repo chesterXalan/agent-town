@@ -21,7 +21,7 @@ selected coordinates to Open-Meteo; no session information or telemetry is sent.
 Automatic location queries IPWhois from the local server's public egress IP; that provider receives no session metadata.
 
 GET `/api/town` returns a snapshot. GET `/api/events` streams changed snapshots and heartbeats.
-API responses are not cached. Foreign hosts/origins and write methods are rejected; the server binds only to `127.0.0.1`.
+API responses are not cached. Foreign hosts/origins and write methods are rejected; the server binds only to `127.0.0.1`, advertised as `http://localhost:2510`.
 
 ## Weather and sunlight
 
@@ -60,6 +60,17 @@ Observed session state and simulated life are separate: `working` types, `waitin
 The canvas defaults to 15 FPS; Settings offers 10, 15, 20, 30, or 60 FPS, persisted in browser storage.
 Changing the drawing rate preserves simulation time and does not reset the camera or residents.
 The canvas stops while hidden or paused, caps device pixel ratio at 1.5, and respects reduced-motion preference.
+
+## Installed app
+
+The production build generates a standalone web app manifest and a Workbox service worker.
+Only build assets, fonts, icons, and GLB models are precached; APIs and SSE always use the network.
+Navigation fallback excludes `/api`, so unavailable endpoints cannot return the cached app shell.
+The offline shell can show the demo, but live mode explicitly marks a disconnected service.
+Town queries can reach the loopback server even when the browser reports no internet connection.
+New builds offer a reload action rather than replacing an active scene automatically.
+Installation still uses the browser engine and requires the local server for live sessions.
+Preferences and installations are origin-specific: use a consistent host and port.
 
 ## First-version boundaries
 

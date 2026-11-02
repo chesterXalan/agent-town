@@ -9,10 +9,14 @@ The scene and visual language retain sdd-dashboard's pixel neobrutalist style.
 - English, Traditional Chinese, and Japanese UI; preserve user-provided session titles and directory names.
 - Language follows the system by default, with English fallback; explicit preferences persist in browser storage.
 - Labeled icon buttons and keyboard focus indicators; show district counts only above one.
-- The top-right Settings popover contains language, frame rate, city search, connection status, and the demo switch.
+- The top-right Settings popover contains language, frame rate, zoom sensitivity, city search, connection status, and the demo switch.
 - A separate header button cycles system/light/dark appearance. Time and weather each have one toolbar selector:
   follow the selected city or use a manual override, without duplicate controls in Settings.
 - Default to 15 FPS; offer 10, 15, 20, 30, or 60 FPS without restarting the scene.
+- Zoom sensitivity defaults to 2×, with persisted 1×–4× choices that preserve the camera position.
+- Resident status badges are keyboard-accessible 44 px selection targets; desks also select their owner.
+- Selecting and closing a resident smoothly transitions between close-up and overview, unless reduced motion is enabled.
+- App installation uses the browser’s built-in controls. PWA updates require an explicit reload; lost server connections remain visible above the town.
 - A scrolling resident list beside a bounded canvas; a stacked layout below 720 px.
 - Theme defaults to the system. Scene lighting follows the selected city's sunlight independently of the UI theme.
 - Use approximate network location unless the user selects a city. Manual selection always wins and persists.

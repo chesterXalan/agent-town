@@ -10,7 +10,7 @@ const SCREEN = '/office/models/computerScreen.glb'
 const CHAIR = '/office/models/chairDesk.glb'
 const DESK_SCALE = 1.2
 /** 散座的桌子在座位往人面對方向多遠（世界單位） */
-export const DESK_OUT = 0.7
+export const DESK_OUT = 0.8
 /**
  * 椅子在「座位框架」（原點＝人物腳下、local -z＝人面對方向、已乘 DESK_SCALE）裡的位移；原尺寸、不下沉。
  * chairDesk.glb 原點在角落、正面 +z：座墊中心 (0.1675, *, -0.183)、座墊頂 y≈0.33（底座 0.19 + 座墊 0.14）。
@@ -63,10 +63,19 @@ export interface DeskProps {
   lamp?: number
   /** 桌子朝人那側（local +z 距 DESK_OUT）放辦公椅；screenOnly 時不放 */
   chair?: boolean
+  onSelect?(): void
 }
 
 /** 辦公桌 + 螢幕（screenOnly 時只有螢幕）；未旋轉時螢幕面向 +z（坐在桌子 +z 側的人） */
-export function Desk({ position, screenToken, screenOnly = false, rotationY = 0, lamp = 0, chair = true }: DeskProps) {
+export function Desk({
+  position,
+  screenToken,
+  screenOnly = false,
+  rotationY = 0,
+  lamp = 0,
+  chair = true,
+  onSelect,
+}: DeskProps) {
   const desk = useGLTF(DESK).scene
   const screen = useGLTF(SCREEN).scene
   const deskObj = useMemo(() => withShadows(desk.clone()), [desk])
@@ -74,8 +83,24 @@ export function Desk({ position, screenToken, screenOnly = false, rotationY = 0,
   const glow = useMemo(() => (screenToken ? readToken(screenToken) : null), [screenToken])
 
   return (
-    <group position={position} rotation-y={rotationY} scale={DESK_SCALE}>
-      {!screenOnly && <primitive object={deskObj} position={DESK_OFFSET} />}
+    <group
+      position={position}
+      rotation-y={rotationY}
+      scale={DESK_SCALE}
+      onClick={
+        onSelect
+          ? (event) => {
+              event.stopPropagation()
+              if (event.delta <= 5) onSelect()
+            }
+          : undefined
+      }
+    >
+      {!screenOnly && (
+        <group scale={[1.5, 1, 1.3]}>
+          <primitive object={deskObj} position={DESK_OFFSET} />
+        </group>
+      )}
       {!screenOnly && chair && (
         <group position={[0, 0, DESK_OUT / DESK_SCALE]}>
           <ChairModel />
