@@ -48,7 +48,7 @@ The server always binds to loopback. See [Architecture](docs/architecture.md) fo
 
 ## Credits and licensing
 
-Adapted from our colleague **leolu**'s [sdd-dashboard](https://git.thebarkingdog.tw/leolu/claude-plugins/src/branch/master/apps/sdd-dashboard).
+Adapted from our colleague **leolu**'s `sdd-dashboard`.
 The retained scene, animation, and design-system code is recorded in [Provenance](docs/provenance.md).
 Published with the original author's permission. Agent Town's code is distributed under the [MIT License](LICENSE),
 with attribution to **leolu** for the original project and **chesterXalan** for this adaptation.

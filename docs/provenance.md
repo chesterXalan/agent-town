@@ -1,7 +1,6 @@
 # Provenance
 
 - Source: `leolu/claude-plugins`, `apps/sdd-dashboard`
-- Repository: https://git.thebarkingdog.tw/leolu/claude-plugins
 - Commit: `9295825b06d0c04389ea9b1a2776caa8bd3ce815`
 - Retrieved: 2026-11-02
 - Original project author: leolu
