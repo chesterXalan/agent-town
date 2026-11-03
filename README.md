@@ -7,13 +7,13 @@ Residents work, wait for you, and take coffee breaks. Life animations run locall
 
 ## Run
 
-Requires Node.js 22.12+ and pnpm 11. The live bridge currently supports macOS with
+Requires [Bun](https://bun.com/) 1.4.4 or later. The live bridge currently supports macOS with
 [MH Desk Pets](https://github.com/chesterXalan/mh-desk-pets) installed and its hooks configured.
 The desktop app does not need to be running.
 
 ```sh
-pnpm install
-pnpm start
+bun install --frozen-lockfile
+bun run start
 ```
 
 Open **http://localhost:2510**. Use the top-right **Settings** gear for language, city, frame rate, zoom sensitivity, and demo mode,
@@ -33,9 +33,12 @@ Updates offer a reload button. Use the same host and port to retain your prefere
 ## Development
 
 ```sh
-pnpm dev        # API :2510, Vite :2511
-pnpm check      # tests, typecheck, production build
+bun run dev    # API :2510, Vite :2511
+bun run check  # tests, typecheck, production build
 ```
+
+`bun run test` uses the existing Vitest suite. Bun runs the server, development tools, and build;
+Node.js is not required. The optional `.mise.toml` pins the tested Bun version.
 
 `AGENT_TOWN_PORT` changes the API port. `AGENT_TOWN_HELPER` overrides the absolute path to
 `deskpets-hook` (default: `/Applications/DeskPets.app/Contents/MacOS/deskpets-hook`).

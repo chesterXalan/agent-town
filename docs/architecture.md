@@ -1,6 +1,10 @@
 # Architecture
 
-`server/` → `shared/` → `web/src/`. React 19, Three.js / React Three Fiber, Vite, Hono, and TanStack Query.
+`server/` → `shared/` → `web/src/`. React 19, Three.js / React Three Fiber, Vite, Hono, Bun, and TanStack Query.
+
+The server uses Bun’s native HTTP server and the Hono Bun static-file adapter.
+Bun also runs Vite, Vitest, TypeScript, and Prettier; dependency versions are pinned in `bun.lock`.
+SSE requests disable Bun’s per-request idle timeout. SIGINT and SIGTERM close active connections.
 
 ## State adapter
 

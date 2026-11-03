@@ -1,5 +1,4 @@
-import { serve } from '@hono/node-server'
-import { serveStatic } from '@hono/node-server/serve-static'
+import { serveStatic } from '@hono/bun'
 import { fileURLToPath } from 'node:url'
 import { createApp } from './app'
 import { createSource, DEFAULT_HELPER, readSessions } from './source'
@@ -10,12 +9,17 @@ const helper = process.env.AGENT_TOWN_HELPER ?? DEFAULT_HELPER
 const app = createApp(createSource(() => readSessions(helper)))
 const root = fileURLToPath(new URL('../dist', import.meta.url))
 app.get('/*', serveStatic({ root }))
-const server = serve({ fetch: app.fetch, hostname: '127.0.0.1', port }, () => {
-  console.log(`Agent Town: http://localhost:${port}`)
+const server = Bun.serve({
+  hostname: '127.0.0.1',
+  port,
+  fetch(request, server) {
+    if (new URL(request.url).pathname === '/api/events') server.timeout(request, 0)
+    return app.fetch(request)
+  },
 })
+console.log(`Agent Town: http://localhost:${port}`)
 function shutdown() {
-  server.close()
-  if ('closeAllConnections' in server) server.closeAllConnections()
+  void server.stop(true)
 }
 process.on('SIGTERM', shutdown)
 process.on('SIGINT', shutdown)
