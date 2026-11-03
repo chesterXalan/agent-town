@@ -2,6 +2,8 @@ import { useId } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FRAME_RATES, DEFAULT_FRAME_RATE, type FrameRate } from '@/lib/frameRate'
 import { setFrameRate, useFrameRate } from '@/lib/frameRateStore'
+import { GRAPHICS_QUALITIES, type GraphicsQuality } from '@/lib/graphicsQuality'
+import { setGraphicsQuality, useGraphicsQuality } from '@/lib/graphicsQualityStore'
 import { ZOOM_SPEEDS, type ZoomSpeed } from '@/lib/zoom'
 import { setZoomSpeed, useZoomSpeed } from '@/lib/zoomStore'
 import { Popover } from 'radix-ui'
@@ -25,6 +27,8 @@ export function SettingsMenu({
   const { t } = useTranslation()
   const language = useLanguagePreference()
   const fps = useFrameRate()
+  const quality = useGraphicsQuality()
+  const recommendedFps = quality === 'high' ? 15 : DEFAULT_FRAME_RATE
   const zoomSpeed = useZoomSpeed()
   const titleId = useId()
   return (
@@ -67,6 +71,22 @@ export function SettingsMenu({
               </select>
             </label>
             <label className="flex flex-col gap-2 text-ui">
+              {t('settings.graphicsQuality')}
+              <select
+                className="town-select"
+                aria-label={t('settings.graphicsQuality')}
+                value={quality}
+                onChange={(event) => setGraphicsQuality(event.target.value as GraphicsQuality)}
+              >
+                {GRAPHICS_QUALITIES.map((value) => (
+                  <option key={value} value={value}>
+                    {t(`settings.quality.${value}`)}
+                  </option>
+                ))}
+              </select>
+              <span className="text-body text-muted-foreground">{t(`settings.qualityHelp.${quality}`)}</span>
+            </label>
+            <label className="flex flex-col gap-2 text-ui">
               {t('settings.frameRate')}
               <select
                 className="town-select"
@@ -76,7 +96,7 @@ export function SettingsMenu({
               >
                 {FRAME_RATES.map((rate) => (
                   <option key={rate} value={rate}>
-                    {rate === DEFAULT_FRAME_RATE ? t('settings.recommendedFps', { fps: rate }) : `${rate} FPS`}
+                    {rate === recommendedFps ? t('settings.recommendedFps', { fps: rate }) : `${rate} FPS`}
                   </option>
                 ))}
               </select>

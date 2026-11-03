@@ -1,6 +1,6 @@
 export const FRAME_RATES = [10, 15, 20, 30, 60] as const
 export type FrameRate = (typeof FRAME_RATES)[number]
-export const DEFAULT_FRAME_RATE: FrameRate = 15
+export const DEFAULT_FRAME_RATE: FrameRate = 30
 export const FRAME_RATE_KEY = 'agent-town-frame-rate'
 
 export function loadFrameRate(storage?: Pick<Storage, 'getItem'>): FrameRate {

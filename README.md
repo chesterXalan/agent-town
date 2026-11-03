@@ -16,12 +16,13 @@ bun install --frozen-lockfile
 bun run start
 ```
 
-Open **http://localhost:2510**. Use the top-right **Settings** gear for language, city, frame rate, zoom sensitivity, and demo mode,
+Open **http://localhost:2510**. Use the top-right **Settings** gear for language, city, graphics quality, frame rate, zoom sensitivity, and demo mode,
 or open `/?demo=1` to visit without a bridge. English, Traditional Chinese, and Japanese follow your system
 by default, with English as the fallback.
 Click a resident, their desk, or their status badge to find them. Drag to orbit, scroll to zoom, or choose **Take a walk** and use WASD.
 Projects get their own districts; busy districts expand into additional wings and campuses.
-Rendering defaults to 15 FPS; Settings offers 10–60 FPS to suit your computer.
+Rendering defaults to Balanced quality at 30 FPS; choose Power saver or High quality and 10–60 FPS to suit your computer.
+Existing frame-rate preferences are preserved.
 The appearance button cycles through system, light, and dark. Daylight and weather use an approximate network location;
 search for a city in Settings to override it. The scene's time and weather menus also allow manual overrides.
 

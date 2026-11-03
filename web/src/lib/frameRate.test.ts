@@ -7,9 +7,9 @@ describe('frame rate preference', () => {
     expect(loadFrameRate({ getItem: () => String(fps) })).toBe(fps)
   })
   it.each([null, '', '0', '120', '-1', 'Infinity', 'NaN', 'bad'])(
-    'defaults to 15 FPS for invalid or missing value %s',
+    'defaults to 30 FPS for invalid or missing value %s',
     (value) => {
-      expect(loadFrameRate({ getItem: () => value })).toBe(15)
+      expect(loadFrameRate({ getItem: () => value })).toBe(30)
     },
   )
   it('persists a rate and works with blocked storage', () => {
@@ -29,7 +29,7 @@ describe('frame rate preference', () => {
           throw new Error('Blocked')
         },
       }),
-    ).toBe(15)
+    ).toBe(30)
     expect(() =>
       saveFrameRate(15, {
         setItem: () => {

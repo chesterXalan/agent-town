@@ -9,10 +9,14 @@ The scene and visual language retain sdd-dashboard's pixel neobrutalist style.
 - English, Traditional Chinese, and Japanese UI; preserve user-provided session titles and directory names.
 - Language follows the system by default, with English fallback; explicit preferences persist in browser storage.
 - Labeled icon buttons and keyboard focus indicators; show district counts only above one.
-- The top-right Settings popover contains language, frame rate, zoom sensitivity, city search, connection status, and the demo switch.
+- The top-right Settings popover contains language, graphics quality, frame rate, zoom sensitivity, city search, connection status, and the demo switch.
 - A separate header button cycles system/light/dark appearance. Time and weather each have one toolbar selector:
   follow the selected city or use a manual override, without duplicate controls in Settings.
-- Default to 15 FPS; offer 10, 15, 20, 30, or 60 FPS without restarting the scene.
+- Default to Balanced quality and 30 FPS; offer 10, 15, 20, 30, or 60 FPS without restarting the scene.
+- Graphics quality and frame rate persist independently; never overwrite an existing frame-rate preference.
+  Power saver disables shadows at 1× rendering resolution; Balanced uses 2048 px shadows at 1×;
+  High retains 4096 px shadows and up to 1.5× resolution. Recommend 15 FPS for High, 30 FPS otherwise.
+  Quality changes preserve the camera and residents, release obsolete shadow targets, and refresh paused scenes once.
 - Zoom sensitivity defaults to 2×, with persisted 1×–4× choices that preserve the camera position.
 - Resident status badges are keyboard-accessible 44 px selection targets; desks also select their owner.
 - Selecting and closing a resident smoothly transitions between close-up and overview, unless reduced motion is enabled.

@@ -61,9 +61,13 @@ Bundled i18next resources translate UI, demo titles, and speech at render time; 
 
 Observed session state and simulated life are separate: `working` types, `waiting` asks for attention,
 `idle` rests, and `unknown` remains explicitly labeled. All walking, breaks, and weather effects are local animation.
-The canvas defaults to 15 FPS; Settings offers 10, 15, 20, 30, or 60 FPS, persisted in browser storage.
-Changing the drawing rate preserves simulation time and does not reset the camera or residents.
-The canvas stops while hidden or paused, caps device pixel ratio at 1.5, and respects reduced-motion preference.
+The canvas defaults to Balanced quality at 30 FPS. Settings offers 10, 15, 20, 30, or 60 FPS;
+quality and frame rate persist independently, preserving existing frame-rate preferences.
+Power saver disables shadows at 1× pixel ratio, Balanced uses 2048 px shadows at 1×,
+and High retains 4096 px shadows at up to 1.5×. High recommends 15 FPS; the other profiles recommend 30 FPS.
+Quality changes release obsolete shadow targets and preserve the camera and residents.
+Changing the drawing rate preserves simulation time. The canvas stops while hidden or paused,
+refreshes a paused scene once when quality changes, and respects reduced-motion preference.
 
 ## Installed app
 

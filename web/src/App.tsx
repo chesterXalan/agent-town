@@ -12,6 +12,8 @@ import { assignSeats, type SeatMap } from '@/lib/office/layout'
 import { localHour, PHASES, phaseSky, skyAt, WEATHERS, type Phase, type Weather } from '@/lib/office/sky'
 import { buildCampuses, DEMO_SESSIONS, STATE_CLASS } from '@/lib/town'
 import { useFrameRate } from '@/lib/frameRateStore'
+import { GRAPHICS_PROFILES } from '@/lib/graphicsQuality'
+import { useGraphicsQuality } from '@/lib/graphicsQualityStore'
 import { useTown } from '@/lib/useTown'
 import { setEnvironment, useEnvironment } from '@/lib/environmentStore'
 import { useWeather } from '@/lib/useWeather'
@@ -40,6 +42,7 @@ const EMPTY: TownSession[] = []
 export default function App() {
   const { t } = useTranslation()
   const fps = useFrameRate()
+  const graphics = GRAPHICS_PROFILES[useGraphicsQuality()]
   const pwa = usePwa()
   const [demo, setDemo] = useState(() => new URLSearchParams(location.search).get('demo') === '1')
   const town = useTown(demo)
@@ -314,9 +317,9 @@ export default function App() {
                 {labelLayer && (
                   <Canvas
                     style={{ isolation: 'isolate' }}
-                    shadows
+                    shadows={graphics.shadowMapSize > 0}
                     camera={OFFICE_CAMERA}
-                    dpr={[1, 1.5]}
+                    dpr={graphics.dpr}
                     frameloop={!hidden && !paused && reduce ? 'demand' : 'never'}
                     gl={{ antialias: true, powerPreference: 'low-power' }}
                   >

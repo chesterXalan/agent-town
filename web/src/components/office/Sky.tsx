@@ -1,14 +1,14 @@
 import { useFrame, useThree } from '@react-three/fiber'
-import { useEffect, useMemo, useRef } from 'react'
-import { Color, Fog, type AmbientLight, type Mesh } from 'three'
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
+import { Color, Fog, type AmbientLight, type DirectionalLight, type Mesh } from 'three'
+import { GRAPHICS_PROFILES } from '@/lib/graphicsQuality'
+import { useGraphicsQuality } from '@/lib/graphicsQualityStore'
 import type { Vec3 } from '@/lib/office/layout'
 import { FLASH_MS, nextFlashAt, type Phase, type SkyState, type Weather } from '@/lib/office/sky'
 import { readToken } from '@/lib/office/tokens'
 
 /** 主光投影範圍：對街建地外緣 |x|,|z| ≤ 48 的四角離原點 48√2 ≈ 68，斜向太陽時也涵蓋，外圈雲影才落得到地面 */
 const SHADOW_EXTENT = 68
-/** 範圍放大後加大貼圖，室內陰影不變糊（每 texel 136/4096 ≈ 0.033，與原 68/2048 相同） */
-const SHADOW_MAP = 4096
 /** 陰影相機深度：正交相機 near 可為負，涵蓋光源後方的外圈雲（|p| ≤ ~117）與遠側建地角落（約 60+68） */
 const SHADOW_NEAR = -60
 const SHADOW_FAR = 140
@@ -98,8 +98,27 @@ function CelestialBody({ dir, color }: { dir: Vec3; color: string }) {
 
 /** 晝夜與天氣的天色、光源、日月、室外地面、夜燈與雷雨閃光 */
 export function Sky({ sky, weather }: { sky: SkyState; weather: Weather }) {
+  const { shadowMapSize } = GRAPHICS_PROFILES[useGraphicsQuality()]
+  const sunlight = useRef<DirectionalLight>(null)
+  const get = useThree((s) => s.get)
   const scene = useThree((s) => s.scene)
   const invalidate = useThree((s) => s.invalidate)
+  useLayoutEffect(() => {
+    const shadow = sunlight.current?.shadow
+    if (!shadow) return
+    // Three.js keeps an existing shadow target when mapSize changes; release it before resizing.
+    shadow.map?.dispose()
+    shadow.map = null
+    shadow.mapSize.set(Math.max(1, shadowMapSize), Math.max(1, shadowMapSize))
+    shadow.needsUpdate = true
+    invalidate()
+    // Refresh a paused scene once without advancing the simulation clock.
+    const frame = requestAnimationFrame(() => {
+      const state = get()
+      if (!document.hidden && state.frameloop === 'never') state.advance(state.clock.elapsedTime, true)
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [shadowMapSize, get, invalidate])
   const w = (r: Record<Phase, number>) => lerp(r[sky.from], r[sky.to], sky.t)
 
   const colors = useMemo(() => {
@@ -173,11 +192,11 @@ export function Sky({ sky, weather }: { sky: SkyState; weather: Weather }) {
       <ambientLight ref={ambient} intensity={ambientBase} />
       {/* 只有主光投影 */}
       <directionalLight
+        ref={sunlight}
         color={colors.light}
         intensity={w(DIRECT) * DIM[weather]}
         position={position}
-        castShadow
-        shadow-mapSize={[SHADOW_MAP, SHADOW_MAP]}
+        castShadow={shadowMapSize > 0}
         shadow-bias={-0.0005}
         shadow-camera-left={-SHADOW_EXTENT}
         shadow-camera-right={SHADOW_EXTENT}
