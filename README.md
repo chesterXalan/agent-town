@@ -19,7 +19,8 @@ bun run start
 Open **http://localhost:2510**. Use the top-right **Settings** gear for language, city, graphics quality, frame rate, zoom sensitivity, and demo mode,
 or open `/?demo=1` to visit without a bridge. English, Traditional Chinese, and Japanese follow your system
 by default, with English as the fallback.
-Click a resident, their desk, or their status badge to find them. Drag to orbit, scroll to zoom, or choose **Take a walk** and use WASD.
+Click a resident, their desk, or their status badge to follow them; close their card to return to the overview.
+Drag to orbit, scroll to zoom, or choose **Take a walk** and use WASD.
 Projects get their own districts; busy districts expand into additional wings and campuses.
 Rendering defaults to Balanced quality at 30 FPS; choose Power saver or High quality and 10–60 FPS to suit your computer.
 Existing frame-rate preferences are preserved.

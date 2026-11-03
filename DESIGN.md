@@ -20,6 +20,8 @@ The scene and visual language retain sdd-dashboard's pixel neobrutalist style.
 - Zoom sensitivity defaults to 2×, with persisted 1×–4× choices that preserve the camera position.
 - Resident status badges are keyboard-accessible 44 px selection targets; desks also select their owner.
 - Selecting and closing a resident smoothly transitions between close-up and overview, unless reduced motion is enabled.
+- A selected resident's camera follows their movement using the existing frame clock. Orbit, zoom, and manual pan offsets remain available.
+  Closing the card, losing the resident, or changing campus ends following; first-person mode keeps its own camera controls.
 - App installation uses the browser’s built-in controls. PWA updates require an explicit reload; lost server connections remain visible above the town.
 - A scrolling resident list beside a bounded canvas; a stacked layout below 720 px.
 - Theme defaults to the system. Scene lighting follows the selected city's sunlight independently of the UI theme.

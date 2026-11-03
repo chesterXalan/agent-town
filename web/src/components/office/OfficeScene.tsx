@@ -7,6 +7,7 @@ import type { OfficeDept } from '../../../../shared/office'
 import { appearanceOf } from '@/lib/office/appearance'
 import { useZoomSpeed } from '@/lib/zoomStore'
 import { townDistance, OFFICE_CAMERA } from '@/lib/office/camera'
+import { createCameraFollow } from '@/lib/office/cameraFollow'
 import { isMoveKey, isTypingTarget, PAN_SPEED, panStep } from '@/lib/office/keys'
 import { deptZone, HALF, seatFacing, type SeatMap, type Vec3 } from '@/lib/office/layout'
 import { agentHome, resolvePose } from '@/lib/office/resolvePose'
@@ -106,6 +107,7 @@ export function OfficeScene({
 }: Props) {
   const zoomSpeed = useZoomSpeed()
   const controls = useRef<CameraControls>(null)
+  const follow = useMemo(createCameraFollow, [])
   const size = useThree((s) => s.size)
   const life = useAgentLife({ agents, seats, events: NO_EVENTS, sky, hour, reduce, eventBusy, eventPoseOf })
   const latest = useRef({ agents, seats, life })
@@ -124,6 +126,7 @@ export function OfficeScene({
     }
   }, [firstPerson, fit])
   useEffect(() => {
+    follow.reset()
     if (firstPerson) return
     if (!focusId) {
       void controls.current?.setLookAt(...OFFICE_CAMERA.position, 0, 0, 0, !reduce)
@@ -136,7 +139,17 @@ export function OfficeScene({
     if (!agent || !seat) return
     const [x, y, z] = currentLife.poseOf(focusId)?.position ?? agentHome(agent, seat).home
     void controls.current?.setLookAt(x, y + 12, z + 14, x, y, z, !reduce)
-  }, [focusId, firstPerson, reduce, fit])
+  }, [focusId, firstPerson, reduce, fit, follow])
+  useFrame((_, delta) => {
+    const c = controls.current
+    if (!c || !focusId || firstPerson) return
+    const { agents: current, seats: currentSeats, life: currentLife } = latest.current
+    const agent = current.find((a) => a.id === focusId)
+    const seat = currentSeats.get(focusId)
+    if (!agent || !seat) return
+    const position = currentLife.poseOf(focusId)?.position ?? agentHome(agent, seat).home
+    follow.step(c, position, delta, reduce)
+  }, -2)
   useWasdPan(controls, firstPerson, false)
   return (
     <>

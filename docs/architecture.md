@@ -69,6 +69,10 @@ Quality changes release obsolete shadow targets and preserve the camera and resi
 Changing the drawing rate preserves simulation time. The canvas stops while hidden or paused,
 refreshes a paused scene once when quality changes, and respects reduced-motion preference.
 
+Selecting a resident smoothly follows their movement using the existing frame clock, preserving orbit, zoom,
+and manual pan offsets. Closing the card, losing the resident, or changing campus ends following;
+first-person mode retains independent camera controls.
+
 ## Installed app
 
 The production build generates a standalone web app manifest and a Workbox service worker.

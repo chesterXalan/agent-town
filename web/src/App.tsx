@@ -333,7 +333,7 @@ export default function App() {
                       sky={sky}
                       weather={weather}
                       hour={hour}
-                      focusId={selectedId}
+                      focusId={selected?.id ?? null}
                       firstPerson={firstPerson}
                       reduce={reduce}
                       onSelectAgent={select}
