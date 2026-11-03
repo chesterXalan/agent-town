@@ -1,5 +1,7 @@
 # Agent Town
 
+[English](README.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md)
+
 A little 3D town for your local Claude Code and Codex sessions.
 Residents work, wait for you, and take coffee breaks. Life animations run locally and use no model tokens.
 
@@ -9,7 +11,7 @@ Residents work, wait for you, and take coffee breaks. Life animations run locall
 
 Requires [Bun](https://bun.com/) 1.4.4 or later. Live sessions use the shared
 [Agent Session Bridge](https://github.com/chesterXalan/agent-session-bridge) on macOS 14+,
-built with Swift 6 (Xcode Command Line Tools). MH Desk Pets is not required. Demo mode works without the bridge.
+built with Swift 6 (Xcode Command Line Tools). Demo mode works without the bridge.
 
 ```sh
 git clone --recurse-submodules https://github.com/chesterXalan/agent-town.git
@@ -22,7 +24,7 @@ bun run start
 
 Restart CLI sessions after installing hooks and approve the updated hooks if prompted.
 Setup installs a standalone helper; starting the server never changes hook configuration.
-The hooks and metadata are shared with MH Desk Pets when both apps are installed.
+Other applications using the same bridge share its hooks and metadata.
 
 Open **http://localhost:2510**. Use the top-right **Settings** gear for language, city, graphics quality, frame rate, zoom sensitivity, and demo mode,
 or open `/?demo=1` to visit without a bridge. English, Traditional Chinese, and Japanese follow your system
@@ -53,10 +55,12 @@ Node.js is not required. The optional `.mise.toml` pins the tested Bun version.
 
 `AGENT_TOWN_PORT` changes the API port. `AGENT_TOWN_HELPER` overrides the absolute path to
 `agent-session-bridge` (default: `~/Library/Application Support/AgentSessionBridge/bin/agent-session-bridge`).
-The legacy `deskpets-hook` remains compatible with this override.
 The bridge is pinned as a submodule under `vendor/`; setup initializes it if needed.
 `bun run hooks:remove` removes the shared hooks for all consumers, while keeping the helper and records.
 The server always binds to loopback. See [Architecture](docs/architecture.md) for the adapter and scope.
+
+Keep the English, Traditional Chinese, and Japanese README files in sync when changing setup or behavior.
+Technical documentation and code comments remain in English.
 
 ## Credits and licensing
 

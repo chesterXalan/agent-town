@@ -39,6 +39,7 @@ Legacy DeskPets hook entries are replaced rather than duplicated; unrelated hook
 Both apps read metadata from `AgentSessionBridge/sessions/`, with optional reads of `DeskPets/sessions/`
 while already-running CLI sessions finish using their old hooks. New installations need no DeskPets files.
 Restart CLI sessions and accept any new hook trust prompt after installation.
+The legacy `deskpets-hook` command remains compatible with the `AGENT_TOWN_HELPER` override.
 
 Deleting either app does not remove the shared runtime. Removing shared hooks affects every consumer;
 the helper and records remain available. The app UI and web server never install hooks automatically.
