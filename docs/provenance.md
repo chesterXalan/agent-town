@@ -16,9 +16,11 @@ The original server, business dashboards, integration clients, credentials/confi
 company logo, and Git history are not included. Agent Town has a new local-only server, read-only session
 adapter, project grouping, and application shell.
 
-No repository-wide code license was found at the pinned revision. Existing authors retain their rights;
-this private adaptation does not claim an MIT license for upstream code. Obtain the appropriate permission
-before making the adapted code public or distributing it. No upstream license notice has been removed.
+No repository-wide code license was declared at the pinned upstream revision. Agent Town is published
+with the original author's permission and distributed under the [MIT License](../LICENSE), retaining
+attribution to leolu and chesterXalan. This license applies to this repository's code; it does not change
+the licensing of the upstream repository or separately licensed assets and dependencies.
+No upstream license notice has been removed.
 
 The model assets have their own [CC0 notice](../web/public/office/LICENSE.md).
 The small Agent Town favicon is newly drawn SVG artwork, not the upstream company logo.

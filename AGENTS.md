@@ -11,4 +11,4 @@ Read README.md and DESIGN.md before changing behavior or UI.
 - Run `pnpm check` for code changes. Pure tests use `// @vitest-environment node`.
 - Use fake timers for time-dependent tests. Do not weaken style or token tests.
 - Manually verify browser changes with ego-browser; do not add an E2E framework to this repository.
-- Keep this repository private until the upstream code's licensing is resolved.
+- Preserve the MIT license, upstream attribution, and separate asset license notices.

@@ -45,7 +45,8 @@ The server always binds to loopback. See [Architecture](docs/architecture.md) fo
 
 Adapted from our colleague **leolu**'s [sdd-dashboard](https://git.thebarkingdog.tw/leolu/claude-plugins/src/branch/master/apps/sdd-dashboard).
 The retained scene, animation, and design-system code is recorded in [Provenance](docs/provenance.md).
-The upstream code has no declared repository-wide license; this adaptation remains **private** and is not relicensed.
+Published with the original author's permission. Agent Town's code is distributed under the [MIT License](LICENSE),
+with attribution to **leolu** for the original project and **chesterXalan** for this adaptation.
 Kenney models are CC0; see the [asset notice](web/public/office/LICENSE.md).
 Weather estimates come from [Open-Meteo](https://open-meteo.com/) and city names from [GeoNames](https://www.geonames.org/),
 under CC BY 4.0. The Open-Meteo free API is for non-commercial use. Daylight is calculated locally with
