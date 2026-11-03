@@ -33,7 +33,7 @@
   "roster.unknown": "未知狀態",
   "roster.empty": "目前還沒有居民入住",
   "roster.openCli": "開啟 Claude Code 或 Codex，就會自動出現在這裡",
-  "roster.bridgeHelp": "即時模式需要已安裝 MH Desk Pets 的橋接工具與 hooks，桌寵不用開著",
+  "roster.bridgeHelp": "即時模式使用 Agent Session Bridge，請執行 bun run bridge:setup 與 bun run hooks:install，再重開 CLI 工作階段",
   "roster.noMatches": "這個園區沒有符合的居民",
   "roster.localLife": "生活動畫是本機模擬，不會消耗 tokens",
   "campus.label": "園區 {{current}} / {{total}}",

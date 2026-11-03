@@ -5,7 +5,7 @@ import type { TownSnapshot } from '../shared/api'
 
 const line = (provider = 'codex', pid = 42, state = 'working', cwd = '/work/project') =>
   `${provider}\t${pid}\t${state}\tA friendly title\t${cwd}\t-`
-describe('DeskPets read-only bridge', () => {
+describe('Shared read-only session bridge', () => {
   it('keeps same-directory sessions separate across providers and processes', () => {
     const sessions = parseSessions([line(), line('codex', 43), line('claude', 44)].join('\n'))
     expect(sessions).toHaveLength(3)

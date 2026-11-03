@@ -7,14 +7,22 @@ Residents work, wait for you, and take coffee breaks. Life animations run locall
 
 ## Run
 
-Requires [Bun](https://bun.com/) 1.4.4 or later. The live bridge currently supports macOS with
-[MH Desk Pets](https://github.com/chesterXalan/mh-desk-pets) installed and its hooks configured.
-The desktop app does not need to be running.
+Requires [Bun](https://bun.com/) 1.4.4 or later. Live sessions use the shared
+[Agent Session Bridge](https://github.com/chesterXalan/agent-session-bridge) on macOS 14+,
+built with Swift 6 (Xcode Command Line Tools). MH Desk Pets is not required. Demo mode works without the bridge.
 
 ```sh
+git clone --recurse-submodules https://github.com/chesterXalan/agent-town.git
+cd agent-town
 bun install --frozen-lockfile
+bun run bridge:setup
+bun run hooks:install
 bun run start
 ```
+
+Restart CLI sessions after installing hooks and approve the updated hooks if prompted.
+Setup installs a standalone helper; starting the server never changes hook configuration.
+The hooks and metadata are shared with MH Desk Pets when both apps are installed.
 
 Open **http://localhost:2510**. Use the top-right **Settings** gear for language, city, graphics quality, frame rate, zoom sensitivity, and demo mode,
 or open `/?demo=1` to visit without a bridge. English, Traditional Chinese, and Japanese follow your system
@@ -37,13 +45,17 @@ Updates offer a reload button. Use the same host and port to retain your prefere
 ```sh
 bun run dev    # API :2510, Vite :2511
 bun run check  # tests, typecheck, production build
+bun run bridge:test  # shared Swift core tests
 ```
 
 `bun run test` uses the existing Vitest suite. Bun runs the server, development tools, and build;
 Node.js is not required. The optional `.mise.toml` pins the tested Bun version.
 
 `AGENT_TOWN_PORT` changes the API port. `AGENT_TOWN_HELPER` overrides the absolute path to
-`deskpets-hook` (default: `/Applications/DeskPets.app/Contents/MacOS/deskpets-hook`).
+`agent-session-bridge` (default: `~/Library/Application Support/AgentSessionBridge/bin/agent-session-bridge`).
+The legacy `deskpets-hook` remains compatible with this override.
+The bridge is pinned as a submodule under `vendor/`; setup initializes it if needed.
+`bun run hooks:remove` removes the shared hooks for all consumers, while keeping the helper and records.
 The server always binds to loopback. See [Architecture](docs/architecture.md) for the adapter and scope.
 
 ## Credits and licensing

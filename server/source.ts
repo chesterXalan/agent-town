@@ -1,9 +1,11 @@
 import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
+import { homedir } from 'node:os'
+import { join } from 'node:path'
 import type { TownSession, TownSnapshot } from '../shared/api'
 
 const execute = promisify(execFile)
-export const DEFAULT_HELPER = '/Applications/DeskPets.app/Contents/MacOS/deskpets-hook'
+export const DEFAULT_HELPER = join(homedir(), 'Library/Application Support/AgentSessionBridge/bin/agent-session-bridge')
 
 /** Consume the installed bridge's live process scan and established hook matching rules. */
 export function parseSessions(output: string): TownSession[] {

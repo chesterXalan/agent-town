@@ -33,7 +33,7 @@
   "roster.unknown": "状態不明",
   "roster.empty": "まだ住民がいません",
   "roster.openCli": "Claude Code または Codex を起動すると、ここに表示されます。",
-  "roster.bridgeHelp": "ライブ表示には MH Desk Pets のブリッジとフックが必要です。デスクトップアプリは起動不要です。",
+  "roster.bridgeHelp": "ライブ表示には Agent Session Bridge を使用します。bun run bridge:setup と bun run hooks:install を実行し、CLI セッションを再起動してください。",
   "roster.noMatches": "このエリアに該当する住民はいません",
   "roster.localLife": "日常の動きはローカル処理で、トークンは消費しません",
   "campus.label": "エリア {{current}} / {{total}}",

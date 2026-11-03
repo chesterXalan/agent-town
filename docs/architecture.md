@@ -8,9 +8,11 @@ SSE requests disable Bun’s per-request idle timeout. SIGINT and SIGTERM close 
 
 ## State adapter
 
-The server invokes the installed `deskpets-hook list` executable with a fixed argument array, without a shell.
+The server invokes the standalone `agent-session-bridge list` executable with a fixed argument array, without a shell.
 That bridge supplies live processes, provider, PID, hook state, friendly title, and working directory.
-It reuses MH Desk Pets' established PID/start-time and session-ID matching, including tmux and ordinary terminals.
+The implementation lives in the shared `vendor/agent-session-bridge` submodule, also used by MH Desk Pets.
+It retains the established PID/start-time and session-ID matching, including tmux and ordinary terminals.
+Each consumer pins its own tested commit and runs independently of the other app.
 A directory is used to group residents, never to merge their identities in Agent Town.
 
 Scans are bounded to five seconds and 1 MiB, shared between simultaneous requests, and cached for one second.
@@ -18,14 +20,28 @@ Open SSE connections request a scan every two seconds; without a browser, no bac
 Unavailable or failed bridges clear residents and display a source warning. Missing hooks remain `unknown`.
 If a browser loses its server connection, it labels the retained snapshot as potentially stale.
 
-The session API exposes only metadata. Agent Town does not read or store prompts, tool arguments,
-terminal output, or transcripts. The separately installed bridge may inspect local transcript metadata to derive titles.
+The session API exposes only metadata. The server does not read transcripts or store prompts, tool arguments,
+or terminal output. The shared bridge inspects bounded portions of local Claude transcripts for title metadata
+and reads the Codex title index; conversation content is never stored or exposed.
 Titles and paths stay on the local machine. The optional weather integration sends only city searches or
 selected coordinates to Open-Meteo; no session information or telemetry is sent.
 Automatic location queries IPWhois from the local server's public egress IP; that provider receives no session metadata.
 
 GET `/api/town` returns a snapshot. GET `/api/events` streams changed snapshots and heartbeats.
 API responses are not cached. Foreign hosts/origins and write methods are rejected; the server binds only to `127.0.0.1`, advertised as `http://localhost:2510`.
+
+## Shared runtime and hooks
+
+`bun run bridge:setup` builds the pinned Swift package and atomically installs its helper under
+`~/Library/Application Support/AgentSessionBridge/bin/`. It does not modify CLI hooks.
+`bun run hooks:install` explicitly installs shared hooks for Claude Code and Codex, with configuration backups.
+Legacy DeskPets hook entries are replaced rather than duplicated; unrelated hooks are preserved.
+Both apps read metadata from `AgentSessionBridge/sessions/`, with optional reads of `DeskPets/sessions/`
+while already-running CLI sessions finish using their old hooks. New installations need no DeskPets files.
+Restart CLI sessions and accept any new hook trust prompt after installation.
+
+Deleting either app does not remove the shared runtime. Removing shared hooks affects every consumer;
+the helper and records remain available. The app UI and web server never install hooks automatically.
 
 ## Weather and sunlight
 
@@ -86,7 +102,7 @@ Preferences and installations are origin-specific: use a consistent host and por
 
 ## First-version boundaries
 
-- Live source: macOS plus the MH Desk Pets bridge; demo mode works independently.
+- Live source: macOS plus Agent Session Bridge; MH Desk Pets is optional and demo mode works independently.
 - Main CLI sessions only. Subagent-level tracking needs a future provider adapter.
 - Read-only observation; no terminal focus, command execution in sessions, or hook installation from the page.
 - The upstream business dashboards, SDD review events, NPC story scheduler, and company integrations are not connected.

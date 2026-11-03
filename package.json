@@ -15,7 +15,11 @@
     "dev:web": "bun run --bun vite",
     "check": "bun run test && bun run typecheck && bun run build",
     "format": "bun run --bun prettier --write .",
-    "format:check": "bun run --bun prettier --check ."
+    "format:check": "bun run --bun prettier --check .",
+    "bridge:setup": "bun scripts/bridge.ts setup",
+    "bridge:test": "make -C vendor/agent-session-bridge test",
+    "hooks:install": "bun scripts/bridge.ts install",
+    "hooks:remove": "bun scripts/bridge.ts uninstall"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",

@@ -2,3 +2,4 @@ bun.lock
 web/public/office/models/
 dist/
 node_modules/
+vendor/

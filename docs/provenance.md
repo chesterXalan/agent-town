@@ -23,4 +23,6 @@ No upstream license notice has been removed.
 
 The model assets have their own [CC0 notice](../web/public/office/LICENSE.md).
 The small Agent Town favicon is newly drawn SVG artwork, not the upstream company logo.
-MH Desk Pets is invoked as a separately installed local executable; its source is not copied into this repository.
+The session adapter uses the pinned [Agent Session Bridge](https://github.com/chesterXalan/agent-session-bridge)
+submodule. Its Swift core was extracted from MH Desk Pets and retains its MIT copyright notices for
+youngOman and chesterXalan. App interfaces, pet assets, and terminal-focus controls are not included in that bridge.

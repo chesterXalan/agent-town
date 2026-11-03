@@ -33,7 +33,7 @@
   "roster.unknown": "Unknown state",
   "roster.empty": "No residents yet",
   "roster.openCli": "Open Claude Code or Codex and they will appear here.",
-  "roster.bridgeHelp": "Live mode needs the MH Desk Pets bridge and hooks. The desktop app can stay closed.",
+  "roster.bridgeHelp": "Live mode uses Agent Session Bridge. Run bun run bridge:setup and bun run hooks:install, then restart your CLI sessions.",
   "roster.noMatches": "No matching residents on this campus",
   "roster.localLife": "Life is simulated locally. No tokens used.",
   "campus.label": "Campus {{current}} / {{total}}",
